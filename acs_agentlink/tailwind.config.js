@@ -53,7 +53,8 @@ module.exports = {
         }
       },
       backgroundImage: {
-        'gradient-dark-overlay': 'linear-gradient(180deg, rgba(0, 0, 0, 0.08) 8%, rgba(0, 0, 0, 0.93) 93%)',
+                'gradient-dark-overlay': 'linear-gradient(180deg, rgba(0, 0, 0, 0.08) 8%, rgba(0, 0, 0, 0.93) 93%)',
+
       }
     },
   },

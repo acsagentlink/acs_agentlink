@@ -1,9 +1,8 @@
-"use client"
-
-import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import heroImage from '/public/hero-1.png';
 import heroImage2 from '/public/hero-2.png';
+import Header from './Header';
+import Link from 'next/link';
 
 export default function HeroSection() {
 
@@ -16,8 +15,8 @@ export default function HeroSection() {
           src={heroImage}
           alt="Hero background"
           priority={true}
-          className="w-full l:h-screen h-full lg:object-contain" // On large screens, use contain
-          style={{ objectFit: 'cover' }} // On smaller screens, use cover for a good fit
+          className="w-full l:h-screen h-full lg:object-contain"
+          style={{ objectFit: 'cover' }} 
         />
       </div>
 
@@ -35,9 +34,25 @@ export default function HeroSection() {
         className="absolute"
       />
       
-     {/* Text Content on Top of Images */}
-     <div className="absolute inset-0 flex text-center justify-center h-full">
-        <p className="text-6xl font-medium text-white">Elevate your prop firm with<br></br>expert support agents</p>
+     {/* Hero Header and Content */}
+     <div className="mt-5 absolute inset-0 text-center justify-center h-full">
+      <Header/>
+        <p className="mt-20 text-5xl font-medium text-white">Elevate your prop firm with<br></br>expert support agents</p>
+        <p className='mt-5 text-white font-light opacity-80'>Enhance customer support by hiring our pool of support agents</p>
+        <div className='mt-16 justify-center flex gap-4 items-center'>
+        <Link
+                href=""
+                className="relative text-grayscale-white bg-primary rounded-full hover:rounded-full hover:text-grayscale-background py-5 px-8 ring-[rgba(250,133,7,0.1)]  ring-8"
+              >
+                Hire an agent
+              </Link>
+              <Link
+                href=""
+                className="relative text-grayscale-white rounded-full hover:rounded-full hover:text-grayscale-background py-5 px-8 border"
+              >
+                Become an agent
+              </Link>
+        </div>
       </div>
     </div>
   );
