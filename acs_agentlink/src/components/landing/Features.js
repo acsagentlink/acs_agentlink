@@ -9,9 +9,6 @@ export default function Features() {
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-                <Image
-                src={FeatureIcon1}
-                />
       <div className="border border-grayscale-line p-4">Item 1</div>
       <div className="border border-grayscale-line p-4">Item 2</div>
       <div className="border border-grayscale-line p-4">Item 3</div>
