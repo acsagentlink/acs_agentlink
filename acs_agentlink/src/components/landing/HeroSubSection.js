@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import HeroSubSectionImage from '.././../../public/hero-subsection-img.png'
+import HeroSubSectionImage from '.././../../public/hero-subsection-img.svg'
 import RocketIcon from '../../../public/rocket-icon.png'
 
 export default function HeroSubSection() {

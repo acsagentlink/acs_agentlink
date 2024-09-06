@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import heroImage from '/public/hero-1.png';
-import heroImage2 from '/public/hero-2.png';
+import heroImage from '/public/hero-1.svg';
+import heroImage2 from '/public/hero-2.svg';
 import Header from './Header';
 import Link from 'next/link';
 
