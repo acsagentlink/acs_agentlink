@@ -51,6 +51,9 @@ module.exports = {
           weak: '',
           strong: '',
         }
+      },
+      backgroundImage: {
+        'gradient-dark-overlay': 'linear-gradient(180deg, rgba(0, 0, 0, 0.08) 8%, rgba(0, 0, 0, 0.93) 93%)',
       }
     },
   },
