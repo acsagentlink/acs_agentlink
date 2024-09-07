@@ -23,7 +23,7 @@ export default function HeroSubSection() {
                     />
                     <p className='text-grayscale-header_weak mt-4 font-medium text-2xl sm:text-sm md:text-lg lg:text-3xl sm:leading-relaxed md:leading-relaxed'>
                     Community support meets<br></br>excellence!<br></br> 
-                    <span className='text-primary'> Supercharge your prop firm</span><br></br>by hiring skilled support agents who understand the pulse of platforms like Discord and Slack.
+                    <span className='text-primary'> Supercharge your prop firm</span> by hiring skilled support agents who understand the pulse of platforms like Discord and Slack.
                     </p>
                 </div>
             </div>
