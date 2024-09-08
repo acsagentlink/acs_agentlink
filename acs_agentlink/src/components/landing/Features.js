@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 export default function Features() {
     return (
-        <div className="w-full mt-10 items-center p-10 sm:p-20 pb-0 sm:pb-0">
+        <div className="w-full mt-10 items-center p-10 sm:p-20 pb-0 sm:pb-0" id="features">
             <div className="w-fit bg-grayscale-header rounded-full mb-10 p-5"> 
                 <p className="text-grayscale-white">🤙️ Why hire our support agents</p>
             </div>

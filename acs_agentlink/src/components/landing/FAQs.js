@@ -16,7 +16,7 @@ export default function FAQs() {
   };
 
   return (
-    <div className="w-full m-0 items-center sm:mt-0 mt-8 p-10 sm:p-20 sm:pb-0">
+    <div className="w-full m-0 items-center sm:mt-0 mt-8 p-10 sm:p-20 sm:pb-0" id="faqs">
       <div className="w-fit bg-grayscale-header rounded-full mb-10 p-5">
         <p className="text-grayscale-white">💬 Frequently asked questions</p>
       </div>

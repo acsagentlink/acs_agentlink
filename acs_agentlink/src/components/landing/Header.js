@@ -3,11 +3,12 @@ import Logo from '../../../public/logo.png'
 import LogoBlack from '../../../public/logo-black.png'
 import { Sheet, SheetTrigger, SheetContent, SheetClose } from "@/components/ui/sheet"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import Hamburger from '../../../public/hamburger.png'
 
 export default function Header() {
+  
     return (
+      
         <header className="flex items-center justify-between sm:px-28 px-10 py-4">
       <Link href="#" prefetch={false}>
       <Image
@@ -38,19 +39,19 @@ export default function Header() {
           
           <nav className="flex flex-col items-start gap-6 p-6 mt-10">
           <Link
-                href=""
+                href="#home"
                 className="text-grayscale-placeholder hover:rounded-3xl hover:bg-white hover:bg-opacity-10 hover:text-grayscale-header py-3 px-6"
               >
                 Home
               </Link>
         <Link
-                href=""
+                href="#features"
                 className="text-grayscale-placeholder hover:rounded-3xl hover:bg-white hover:bg-opacity-10 hover:text-grayscale-header py-3 px-6"
               >
                 Features
               </Link>
         <Link
-                href=""
+                href="#faqs"
                 className="text-grayscale-placeholder hover:rounded-3xl hover:bg-white hover:bg-opacity-10 hover:text-grayscale-header py-3 px-6"
               >
                 FAQ
@@ -61,19 +62,19 @@ export default function Header() {
 
       <nav className="hidden items-center sm:flex">
       <Link
-                href=""
+                href="#home"
                 className="relative text-grayscale-placeholder hover:rounded-3xl hover:bg-white hover:bg-opacity-10 hover:text-grayscale-background py-3 px-6"
               >
                 Home
               </Link>
         <Link
-                href=""
+                href="#features"
                 className="relative text-grayscale-placeholder hover:rounded-3xl hover:bg-white hover:bg-opacity-10 hover:text-grayscale-background py-3 px-6"
               >
                 Features
               </Link>
         <Link
-                href=""
+                href="#faqs"
                 className="relative text-grayscale-placeholder hover:rounded-3xl hover:bg-white hover:bg-opacity-10 hover:text-grayscale-background py-3 px-6"
               >
                 FAQ

@@ -8,7 +8,7 @@ export default function HeroSection() {
 
     
   return (
-    <div className="relative w-full min-h-screen overflow-hidden rounded-[34px]">
+    <div className="relative w-full min-h-screen overflow-hidden rounded-[34px]" id="home">
       {/* Hero-1 Background Image */}
       <div className="relative w-full lg:h-full md:h-screen xl:h-full sm:h-screen h-screen">
         <Image
