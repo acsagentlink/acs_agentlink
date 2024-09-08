@@ -10,12 +10,12 @@ export default function HeroSubSection() {
                      <Image
                 src={HeroSubSectionImage}
                 priority={true}
-                className='rounded-[50px]'
+                className='rounded-[34px]'
                 />
                 </div>
                    
                 
-                <div className='md:w-[35%] bg-primary bg-opacity-5 rounded-[50px] p-5'>
+                <div className='md:w-[35%] bg-primary bg-opacity-5 rounded-[34px] p-5'>
                     <Image
                     src={RocketIcon}
                     width={40}

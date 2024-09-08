@@ -8,7 +8,7 @@ export default function HeroSection() {
 
     
   return (
-    <div className="relative w-full min-h-screen overflow-hidden rounded-[50px]">
+    <div className="relative w-full min-h-screen overflow-hidden rounded-[34px]">
       {/* Hero-1 Background Image */}
       <div className="relative w-full lg:h-full md:h-screen xl:h-full sm:h-screen h-screen">
         <Image
@@ -48,7 +48,7 @@ export default function HeroSection() {
               </Link>
               <Link
                 href=""
-                className="relative text-grayscale-white rounded-full hover:rounded-full hover:text-grayscale-background py-5 px-8 border"
+                className="relative text-grayscale-white rounded-full hover:rounded-full hover:text-grayscale-background py-5 px-6 border"
               >
                 Become an agent
               </Link>

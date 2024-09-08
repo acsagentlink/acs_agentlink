@@ -7,7 +7,7 @@ const outfit = Outfit({
 });
 
 export const metadata = {
-  title: "A.C.S. AgentLink",
+  title: "A.C.S AgentLink",
   description: "Elevate your prop firm with expert support agents",
 };
 

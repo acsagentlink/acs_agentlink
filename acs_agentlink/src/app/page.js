@@ -1,5 +1,6 @@
 import FAQs from "@/components/landing/FAQs";
 import Features from "@/components/landing/Features";
+import Footer from "@/components/landing/Footer";
 import HeroSection from "@/components/landing/HeroSection";
 import HeroSubSection from "@/components/landing/HeroSubSection";
 
@@ -10,6 +11,7 @@ export default function Home() {
       <HeroSubSection/>
       <Features/>
       <FAQs/>
+      <Footer/>
     </main>
   );
 }
