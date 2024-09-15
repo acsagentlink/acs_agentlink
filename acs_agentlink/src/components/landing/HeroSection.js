@@ -47,7 +47,7 @@ export default function HeroSection() {
                 Hire an agent
               </Link>
               <Link
-                href=""
+                href="/become-an-agent"
                 className="relative text-grayscale-white rounded-full hover:rounded-full hover:text-grayscale-background py-5 px-6 border"
               >
                 Become an agent

@@ -12,7 +12,7 @@ module.exports = {
   		colors: {
   			grayscale: {
   				background: '#FCFCFC',
-  				background_weak: '',
+  				background_weak: '#F7F7F7',
   				input: '',
   				line: '#D9DBE9',
   				placeholder: '#A0A3BD',
