@@ -20,17 +20,19 @@ export default function Step2() {
    const handleTimeSelection = (time) => {
     event.preventDefault();
     setSelectedTime(time);
-     setValue('preferredTime', time); // Set form value without state
+     setValue('preferredTime', time);
    };
 
-    // Watch for the file input
   const resumeFile = watch('resume');
+  console.log(resumeFile)
 
-  // Handle file input change
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    setValue('resume', file); // Register the file with react-hook-form
+    if (file) {
+      setValue('resume', file, { shouldValidate: true }); 
+    }
   };
+  
 
    // Watch the value of the work experience switch
    const workExperience = watch('workExperience');
@@ -60,15 +62,15 @@ export default function Step2() {
         {errors.country && <p className='text-red-500'>{errors.country.message}</p>}
       </div>
       <div className='space-y-2'>
-        <Label className="text-[#344054]" htmlFor="phoneNo">Phone number</Label>
-        <Input id="phoneNo" {...register('phoneNo')} className="focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"/>
-        {errors.phoneNo && <p className='text-red-500'>{errors.phoneNo.message}</p>}
+        <Label className="text-[#344054]" htmlFor="phone_number">Phone number</Label>
+        <Input id="phone_number" {...register('phone_number')} className="focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"/>
+        {errors.phone_number && <p className='text-red-500'>{errors.phone_number.message}</p>}
 
       </div>
       <div className='space-y-2'>
-        <Label className="text-[#344054]" htmlFor="telegramUsername">Telegram username</Label>
-        <Input id="telegramUsername" {...register('telegramUsername')} placeholder="@username" className="focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"/>
-        {errors.telegramUsername && <p className='text-red-500'>{errors.telegramUsername.message}</p>}
+        <Label className="text-[#344054]" htmlFor="telegram">Telegram username</Label>
+        <Input id="telegram" {...register('telegram')} placeholder="@username" className="focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"/>
+        {errors.telegram && <p className='text-red-500'>{errors.telegram.message}</p>}
       </div>
       <div className='space-y-2'>
         <Label className="text-[#344054]" htmlFor="email">Email</Label>
@@ -180,7 +182,7 @@ export default function Step2() {
             type="file" 
             {...register('resume', { required: "Resume is required" })} 
             className="hidden " 
-            onChange={handleFileChange}  // Handle the change event
+            onChange={handleFileChange}
           />
           <div className="text-gray-500 flex flex-col items-center">
                  <Image

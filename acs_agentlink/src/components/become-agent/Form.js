@@ -11,49 +11,59 @@ import Step3 from './Step3';
 import Step4 from './Step4';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 export default function BecomeAgentForm() {
   const [currentStep, setCurrentStep] = useState(0);
+  const [errorMessage, setErrorMessage] = useState(); 
+
+  const router = useRouter();
+
   const methods = useForm({
     resolver: zodResolver(FormDataSchema),
     mode: 'onBlur'
   });
 
-  const { handleSubmit, trigger, reset } = methods;
+  const { handleSubmit, trigger } = methods;
+  
 
   const processForm = async (data) => {
     const formData = new FormData();
 
+    console.log(data.resume)
+
     // Append form fields to FormData
     formData.append('name', data.name);
     formData.append('email', data.email);
-    formData.append('phone', data.phone);
+    formData.append('phone_number', data.phone_number);
     formData.append('password', data.password);
     formData.append('country', data.country);
     formData.append('telegram', data.telegram);
-    formData.append('resume', data.resume[0]); // Assuming resume is a file input
-    formData.append('work_experience', data.work_experience);
-    formData.append('availability', data.availability);
-    formData.append('preferred_time', data.preferred_time);
-    formData.append('full_time', data.full_time);
-    formData.append('construct_message', data.construct_message);
-    formData.append('prompt_response', data.prompt_response);
-    formData.append('trading_knowledge', data.trading_knowledge);
-    formData.append('has_pc', data.has_pc);
-    formData.append('pc_consistent', data.pc_consistent);
-    formData.append('internet', data.internet);
-    formData.append('type', data.type)
+    formData.append('resume', data.resume);
+    formData.append('work_experience', data.workExperience);
+    formData.append('availability', data.availability ? 'yes' : 'no');
+    formData.append('preferred_time', data.preferredTime);
+    formData.append('full_time', data.fullTime ? 'yes' : 'no');
+    formData.append('construct_message', data.constructMessage ? 'yes' : 'no');
+    formData.append('prompt_response', data.promptResponse ? 'yes' : 'no');
+    formData.append('trading_knowledge', data.tradingKnowledge);
+    formData.append('has_pc', data.has_pc ? 'yes' : 'no');
+    formData.append('pc_consistent', data.consistent_pc ? 'yes' : 'no');
+    formData.append('internet', data.internetAccess ? 'yes' : 'no');
+    formData.append('type', data.type);
+
+     // Log form data entries
+  for (let pair of formData.entries()) {
+    console.log(pair[0] + ': ' + pair[1]);
+  }
 
     try {
-      await axios.post('/api/submit', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      router.push('/success-page'); // Update with your success page URL
+      await axios.post('/api/submit', formData);
+      router.push('/become-an-agent/success');
     } catch (error) {
-      alert('Error submitting form.');
-    }
+      console.log('Error details:', error);  
+      const apiError = error.response?.data?.error || error.response?.data?.message || 'An unexpected error occurred.';
+      setErrorMessage(apiError);    }
   };
 
   const next = async () => {
@@ -148,6 +158,12 @@ export default function BecomeAgentForm() {
           )}
         </form>
 
+{/* Display error message below the form if there is any */}
+{errorMessage && (
+          <div className='text-red-500 mt-2'>
+            {errorMessage}
+          </div>
+)}
         {/* Navigation */}
         <div className='pt-5'>
           <div className='flex justify-between gap-5'>
@@ -164,7 +180,7 @@ export default function BecomeAgentForm() {
 
 const steps = [
   { id: '1', fields: ['type'] },
-  { id: '2', fields: ['name', 'email', 'phoneNo', 'telegramUsername', 'country', 'password', 'workExperience', 'availability', 'preferredTime', 'resume'] },
+  { id: '2', fields: ['name', 'email', 'phone_number', 'telegram', 'country', 'password', 'workExperience', 'availability', 'preferredTime', 'resume'] },
   { id: '3', fields: ['fullTime', 'constructMessage', 'promptResponse', 'tradingKnowledge'] },
   { id: '4', fields: ['has_pc', 'consistentPc', 'internetAccess'] }
 ];

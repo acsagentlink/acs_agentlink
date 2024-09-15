@@ -13,40 +13,13 @@ export async function POST(req) {
       jsonObject[key] = value;
     });
 
-    const staticData = {
-      name: "test",
-      email: "test",
-      phone: "tesasdfasdfat",
-      password: "tkljkklkjest",
-      country: "test",
-      telegram: "test",
-      resume: "test.pdf",
-      work_experience: "I have lots of experience",
-      availability: "yes",
-      preferred_time: "8am - 11am",
-      full_time: "yes",
-      construct_message: "yes",
-      prompt_response: "yes",
-      trading_knowledge: "I have trading knowledge",
-      has_pc: "yes",
-      pc_consistent: "no",
-      internet: "yes",
-      type: "1"
-    };
-
-    // Log static data
-    console.log('Static Data:', staticData);
-
-    const response = await axios.post('https://admin.acsagentlink.com/api/become-an-agent', staticData, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await axios.post('https://admin.acsagentlink.com/api/become-an-agent', jsonObject, {
+      });
 
     return NextResponse.json(response.data, { status: response.status });
   } catch (error) {
     const status = error.response?.status || 500;
-    const message = error.response?.data?.message || 'An unexpected error occurred.';
+    const message = error.response?.data?.message || error.response?.data?.error || 'An unexpected error occurred.';
     return NextResponse.json({ error: message }, { status });
   }
 }

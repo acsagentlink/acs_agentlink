@@ -3,8 +3,8 @@ import { z } from 'zod';
 export const FormDataSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email"),
-  phoneNo: z.string().min(8, "Phone number must be at least 8 characters"),
-  telegramUsername: z.string().min(1, "Telegram username is required"),
+  phone_number: z.string().min(8, "Phone number must be at least 8 characters"),
+  telegram: z.string().min(1, "Telegram username is required"),
   country: z.string().min(1, "Country is required"),
   password: z.string().min(8, "Password must be at least 8 characters"),
   hasWorkExperience: z.boolean(),

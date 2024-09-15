@@ -9,11 +9,8 @@ export default function Step1() {
   const { register, setValue, watch, formState: { errors } } = useFormContext();
 
   const selectedType = watch('type');
-  console.log('Current selected type:', selectedType); 
-
 
   const handleTypeSelection = (value) => {
-    console.log(`Service selected with value: ${value}`); // Log selected value
 
     setValue('type', value, { shouldValidate: true });
   };
