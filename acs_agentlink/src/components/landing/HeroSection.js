@@ -41,7 +41,7 @@ export default function HeroSection() {
         <p className='mt-5 text-white font-light opacity-80'>Enhance customer support by hiring our pool of support agents</p>
         <div className='mt-16 justify-center flex gap-4 items-center'>
         <Link
-                href=""
+                href="/hire-an-agent"
                 className="relative text-grayscale-white bg-primary rounded-full hover:rounded-full hover:text-grayscale-background py-5 px-8 ring-[rgba(250,133,7,0.1)]  ring-8"
               >
                 Hire an agent

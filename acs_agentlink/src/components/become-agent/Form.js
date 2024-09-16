@@ -87,7 +87,7 @@ export default function BecomeAgentForm() {
 
   return (
     <FormProvider {...methods}>
-      <section className='flex flex-col justify-between text-[#101828] sm:w-none lg:w-[750px]'>
+      <section className='flex flex-col justify-between text-[#101828]'>
         
         {/* Steps Indicator */}
         <nav aria-label='Progress' className='w-[200px]'>

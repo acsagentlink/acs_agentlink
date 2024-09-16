@@ -25,7 +25,7 @@ module.exports = {
   			},
   			primary: {
   				background: '',
-  				background_strong: '',
+  				background_strong: '#FA9D39',
   				DEFAULT: '#FA8507',
   				weak: '',
   				strong: ''
