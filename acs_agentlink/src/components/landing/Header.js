@@ -56,6 +56,12 @@ export default function Header() {
               >
                 FAQ
               </Link>
+              <Link
+                href="/login"
+                className="relative text-grayscale-placeholder hover:rounded-3xl hover:bg-white hover:bg-opacity-10 hover:text-grayscale-background py-3 px-6"
+              >
+                Login
+              </Link>
           </nav>
         </SheetContent>
       </Sheet>
@@ -79,6 +85,13 @@ export default function Header() {
               >
                 FAQ
               </Link>
+              <Link
+                href="/login"
+                className="relative text-grayscale-placeholder hover:rounded-3xl hover:bg-white hover:bg-opacity-10 hover:text-grayscale-background py-3 px-6"
+              >
+                Login
+              </Link>
+
         
       </nav>
     </header>

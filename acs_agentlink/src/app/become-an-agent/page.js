@@ -7,7 +7,7 @@ export default function BecomeAgent() {
     return (
         <div className="bg-grayscale-white w-full min-h-screen overflow-hidden">
             <Header/>
-            <div className="flex justify-between items-center gap-20 px-0 sm:px-4 md:px-10 lg:pl-20 lg:pr-[7rem]">
+            <div className="flex justify-between gap-20 px-0 sm:px-4 md:px-10 lg:pl-20 lg:pr-[7rem]">
 
             <div className="hidden md:block flex-1 -ml-10 lg:-ml-10 md:ml-2">
           <Image

@@ -71,7 +71,7 @@ const CardItem = ({ icon, title, description, value, selected, onSelect }) => {
         onClick={() => onSelect(value)} // Call onSelect with value
       >
         <div className="flex-shrink-0">
-          <Image src={icon} className="w-8 h-8 text-gray-800" />
+          <Image src={icon} alt='Icon Image' className="w-8 h-8 text-gray-800" />
         </div>
         <div className="ml-4">
           <h3 className="text-lg font-semibold text-grayscale-header">{title}</h3>

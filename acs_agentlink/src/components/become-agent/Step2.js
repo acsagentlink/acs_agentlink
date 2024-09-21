@@ -15,16 +15,14 @@ import SunFogIcon from '../../../public/sun-fog.svg';
 export default function Step2() {
   const { register, setValue, watch, control, formState: { errors } } = useFormContext();
 
-  const [selectedTime, setSelectedTime] = useState(watch('preferredTime', '3pm - 11pm')); // Default to '3pm - 11pm'
+  const [selectedTime, setSelectedTime] = useState(watch('preferredTime'));
 
    const handleTimeSelection = (time) => {
-    event.preventDefault();
     setSelectedTime(time);
-     setValue('preferredTime', time);
+     setValue('preferredTime', time, { shouldValidate: true });
    };
 
   const resumeFile = watch('resume');
-  console.log(resumeFile)
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -132,7 +130,7 @@ export default function Step2() {
 
   <div className='flex space-x-4 mt-2'>
             <Button 
-              className={`px-4 py-2 rounded-full hover:bg-grayscale-header_weak hover:text-white ${selectedTime === '8am - 3pm' ? 'bg-grayscale-header_weak text-white' : 'bg-grayscale-background_weak'}`}
+              className={`px-4 py-2 rounded-full hover:bg-grayscale-header_weak hover:text-white text-grayscale-label ${selectedTime === '8am - 3pm' ? 'bg-grayscale-header_weak text-white' : 'bg-grayscale-background_weak'}`}
               onClick={() => handleTimeSelection('8am - 3pm')}
             >
                   <Image src={MoonIcon} alt='8am - 3pm Icon' className='w-5 h-5 mr-2' />
@@ -140,7 +138,7 @@ export default function Step2() {
               8am - 3pm
             </Button>
             <Button 
-              className={`px-4 py-2 rounded-full hover:bg-grayscale-header_weak hover:text-white ${selectedTime === '3pm - 11pm' ? 'bg-grayscale-header_weak text-white' : 'bg-grayscale-background_weak'}`}
+              className={`px-4 py-2 rounded-full hover:bg-grayscale-header_weak hover:text-white text-grayscale-label ${selectedTime === '3pm - 11pm' ? 'bg-grayscale-header_weak text-white' : 'bg-grayscale-background_weak'}`}
               onClick={() => handleTimeSelection('3pm - 11pm')}
             >
                                 <Image src={SunIcon} alt='3pm - 11pm Icon' className='w-5 h-5 mr-2' />
@@ -148,7 +146,7 @@ export default function Step2() {
               3pm - 11pm
             </Button>
             <Button 
-              className={`px-4 py-2 rounded-full hover:bg-grayscale-header_weak hover:text-white ${selectedTime === 'Both' ? 'bg-grayscale-header_weak text-white' : 'bg-grayscale-background_weak'}`}
+              className={`px-4 py-2 rounded-full hover:bg-grayscale-header_weak hover:text-white text-grayscale-label ${selectedTime === 'Both' ? 'bg-grayscale-header_weak text-white' : 'bg-grayscale-background_weak'}`}
               onClick={() => handleTimeSelection('Both')}
             >
                                 <Image src={SunFogIcon} alt='Both Icon' className='w-5 h-5 mr-2' />

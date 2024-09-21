@@ -12,6 +12,7 @@ export default function Header() {
       <Link href="/" prefetch={false}>
       <Image
             src={LogoBlack}
+            alt='Logo Image'
             />
       </Link>
 
@@ -20,6 +21,7 @@ export default function Header() {
           <Link href="#" prefetch={false} className='px-4 py-2 sm:hidden'>
       <Image
             src={Hamburger}
+            alt='Nav Icon'
             />
       </Link>
 
@@ -55,6 +57,12 @@ export default function Header() {
               >
                 FAQ
               </Link>
+              <Link
+                href="/login"
+                className="relative text-grayscale-placeholder hover:rounded-3xl hover:bg-grayscale-placeholder hover:text-grayscale-background py-3 px-6"
+              >
+                Login
+              </Link>
           </nav>
         </SheetContent>
       </Sheet>
@@ -77,6 +85,12 @@ export default function Header() {
                 className="relative text-grayscale-placeholder hover:rounded-3xl hover:bg-grayscale-placeholder hover:text-grayscale-background py-3 px-6"
               >
                 FAQ
+              </Link>
+              <Link
+                href="/login"
+                className="relative text-grayscale-placeholder hover:rounded-3xl hover:bg-grayscale-placeholder hover:text-grayscale-background py-3 px-6"
+              >
+                Login
               </Link>
         
       </nav>

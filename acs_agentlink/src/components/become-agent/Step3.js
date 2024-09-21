@@ -30,8 +30,7 @@ export default function Step3() {
     <>
     <div className='space-y-5'>
  <div className='space-y-2'>
-        <p className="text-[#344054]"> <h2 className='text-2xl mb-2'>Employment Type</h2>
-  </p>
+    <h2 className='text-2xl mb-2 text-[#344054]'>Employment Type</h2>
   <div className='flex justify-between items-center'>
     <Label className='flex-1 pr-2 text-base font-normal' htmlFor="fullTime">
     Are you open to a full-time position? Additionally, note that if employed, you'll be signing an employment contract.
@@ -49,8 +48,8 @@ export default function Step3() {
   </div>
 
    <div className='space-y-2'>
-        <p className="text-[#344054]"> <h2 className='text-2xl mb-2'>Communication Skills</h2>
-  </p>
+      <h2 className='text-2xl mb-2 text-[#344054]'>Communication Skills</h2>
+
   <div className='flex justify-between items-center pb-2'>
     <Label className='flex-1 pr-2 text-base font-normal'  htmlFor="constructMessage">
     Do you possess strong punctuation and message construction skills?
@@ -82,7 +81,7 @@ export default function Step3() {
   </div>
 
    <div className='space-y-2'>
-  <p className="text-[#344054]"><h2 className='text-2xl mb-2'>Trading Knowledge</h2></p>
+  <h2 className='text-2xl mb-2 text-[#344054]'>Trading Knowledge</h2>
   <div className='flex justify-between items-center'>
     <Label className='flex-1 pr-2 text-base font-normal' htmlFor="tradingKnowledge">
     Do you have any knowledge of trading? If yes, please provide details. Any prior experience in trading would be advantageous

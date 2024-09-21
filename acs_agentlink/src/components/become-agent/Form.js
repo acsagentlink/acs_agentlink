@@ -14,12 +14,19 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 
 export default function BecomeAgentForm() {
+
   const [currentStep, setCurrentStep] = useState(0);
-  const [errorMessage, setErrorMessage] = useState(); 
+  const [errorMessage, setErrorMessage] = useState();
 
   const router = useRouter();
 
+  const [loading, setLoading] = useState(false);
+
+
   const methods = useForm({
+    defaultValues: {
+      preferredTime: '3pm - 11pm',
+    },
     resolver: zodResolver(FormDataSchema),
     mode: 'onBlur'
   });
@@ -28,9 +35,8 @@ export default function BecomeAgentForm() {
   
 
   const processForm = async (data) => {
+    setLoading(true);
     const formData = new FormData();
-
-    console.log(data.resume)
 
     // Append form fields to FormData
     formData.append('name', data.name);
@@ -52,16 +58,11 @@ export default function BecomeAgentForm() {
     formData.append('internet', data.internetAccess ? 'yes' : 'no');
     formData.append('type', data.type);
 
-     // Log form data entries
-  for (let pair of formData.entries()) {
-    console.log(pair[0] + ': ' + pair[1]);
-  }
-
     try {
-      await axios.post('/api/submit', formData);
+      await axios.post('/api/become-an-agent', formData);
       router.push('/become-an-agent/success');
     } catch (error) {
-      console.log('Error details:', error);  
+      setLoading(false);
       const apiError = error.response?.data?.error || error.response?.data?.message || 'An unexpected error occurred.';
       setErrorMessage(apiError);    }
   };
@@ -87,7 +88,7 @@ export default function BecomeAgentForm() {
 
   return (
     <FormProvider {...methods}>
-      <section className='flex flex-col justify-between text-[#101828]'>
+      <section className='flex flex-col justify-between text-[#101828] pb-10'>
         
         {/* Steps Indicator */}
         <nav aria-label='Progress' className='w-[200px]'>
@@ -124,7 +125,7 @@ export default function BecomeAgentForm() {
               transition={{ duration: 0.3, ease: 'easeInOut' }}
             >
               <Step1 />
-            </motion.div>
+              </motion.div>
           )}
 
           {currentStep === 1 && (
@@ -160,7 +161,7 @@ export default function BecomeAgentForm() {
 
 {/* Display error message below the form if there is any */}
 {errorMessage && (
-          <div className='text-red-500 mt-2'>
+          <div className='text-red-500 mt-2 break-words'>
             {errorMessage}
           </div>
 )}
@@ -169,7 +170,13 @@ export default function BecomeAgentForm() {
           <div className='flex justify-between gap-5'>
             {currentStep > 0 && <button onClick={prev} className='w-full btn-secondary rounded-full border border-grayscale-line'>Back</button>}
             <Button onClick={next} className='w-full btn-primary rounded-full p-8 text-md text-grayscale-white'>
-              {currentStep === steps.length - 1 ? 'Submit' : 'Next'}
+              {loading ? (
+                              <div className="spinner"></div> 
+
+              ) : (
+                              currentStep === steps.length - 1 ? 'Submit' : 'Next'
+
+              )}
             </Button>
           </div>
         </div>

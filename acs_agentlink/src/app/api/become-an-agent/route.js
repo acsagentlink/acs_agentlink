@@ -1,7 +1,6 @@
-// app/api/submit/route.js
-
 import axios from 'axios';
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 
 export async function POST(req) {
   try {
@@ -13,11 +12,15 @@ export async function POST(req) {
       jsonObject[key] = value;
     });
 
-    const response = await axios.post('https://admin.acsagentlink.com/api/become-an-agent', jsonObject, {
-      });
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/become-an-agent`, jsonObject);
 
-    return NextResponse.json(response.data, { status: response.status });
-  } catch (error) {
+    const nextResponse = NextResponse.json(response.data, { status: response.status });
+
+    nextResponse.cookies.set('form_submitted', 'true', { path: '/', maxAge: 60 });
+
+
+      return nextResponse;
+    } catch (error) {
     const status = error.response?.status || 500;
     const message = error.response?.data?.message || error.response?.data?.error || 'An unexpected error occurred.';
     return NextResponse.json({ error: message }, { status });
