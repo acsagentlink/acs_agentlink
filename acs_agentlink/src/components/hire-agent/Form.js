@@ -24,7 +24,8 @@ export default function HireAgentForm() {
   const { handleSubmit, watch, setValue, register, formState: { errors }, control, trigger } = methods;
   const [selectedTime, setSelectedTime] = useState(watch('workingHours', '3pm - 11pm')); // Default to '3pm - 11pm'
 
-  const handleTimeSelection = (time) => {
+  const handleTimeSelection = (time, event) => {
+    event.preventDefault();
     setSelectedTime(time);
     setValue('workingHours', time);
   };
@@ -79,24 +80,24 @@ export default function HireAgentForm() {
 <div className='flex space-x-4'>
   <Button 
               type='button'
-                className={`px-4 py-2 rounded-full hover:bg-grayscale-header_weak hover:text-white ${selectedTime === '8am - 3pm' ? 'bg-grayscale-header_weak text-white' : 'bg-grayscale-background_weak'}`}
-                onClick={() => handleTimeSelection('8am - 3pm')}
+                className={`px-4 py-2 rounded-full hover:bg-grayscale-header_weak hover:text-white text-grayscale-label ${selectedTime === '8am - 3pm' ? 'bg-grayscale-header_weak text-white' : 'bg-grayscale-background_weak'}`}
+                onClick={(event) => handleTimeSelection('8am - 3pm', event)}
               >
                 <Image src={MoonIcon} alt='8am - 3pm Icon' className='w-5 h-5 mr-2' />
                 8am - 3pm
               </Button>
               <Button 
               type='button'
-                className={`px-4 py-2 rounded-full hover:bg-grayscale-header_weak hover:text-white ${selectedTime === '3pm - 11pm' ? 'bg-grayscale-header_weak text-white' : 'bg-grayscale-background_weak'}`}
-                onClick={() => handleTimeSelection('3pm - 11pm')}
+                className={`px-4 py-2 rounded-full hover:bg-grayscale-header_weak hover:text-white text-grayscale-label ${selectedTime === '3pm - 11pm' ? 'bg-grayscale-header_weak text-white' : 'bg-grayscale-background_weak'}`}
+                onClick={(event) => handleTimeSelection('3pm - 11pm', event)}
               >
                 <Image src={SunIcon} alt='3pm - 11pm Icon' className='w-5 h-5 mr-2' />
                 3pm - 11pm
               </Button>
               <Button 
               type='button'
-                className={`px-4 py-2 rounded-full hover:bg-grayscale-header_weak hover:text-white ${selectedTime === 'Both' ? 'bg-grayscale-header_weak text-white' : 'bg-grayscale-background_weak'}`}
-                onClick={() => handleTimeSelection('Both')}
+                className={`px-4 py-2 rounded-full hover:bg-grayscale-header_weak hover:text-white text-grayscale-label ${selectedTime === 'Both' ? 'bg-grayscale-header_weak text-white' : 'bg-grayscale-background_weak'}`}
+                onClick={(event) => handleTimeSelection('Both', event)}
               >
                 <Image src={SunFogIcon} alt='Both Icon' className='w-5 h-5 mr-2' />
                 Both

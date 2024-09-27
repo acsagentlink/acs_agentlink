@@ -11,13 +11,17 @@ import { useEffect } from 'react';
 import MoonIcon from '../../../public/moon.svg';
 import SunIcon from '../../../public/sun.svg';
 import SunFogIcon from '../../../public/sun-fog.svg';
+import { EyeIcon, EyeOffIcon } from 'lucide-react';
 
 export default function Step2() {
+  const [showPassword, setShowPassword] = useState(false);
+
   const { register, setValue, watch, control, formState: { errors } } = useFormContext();
 
   const [selectedTime, setSelectedTime] = useState(watch('preferredTime'));
 
-   const handleTimeSelection = (time) => {
+   const handleTimeSelection = (time, event) => {
+    event.preventDefault();
     setSelectedTime(time);
      setValue('preferredTime', time, { shouldValidate: true });
    };
@@ -79,8 +83,21 @@ export default function Step2() {
       
       <div className='space-y-2'>
         <Label className="text-[#344054]" htmlFor="password">Password</Label>
-        <Input id="password" type="password" {...register('password')} className="focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"/>
-        {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
+        <div className='relative'>
+                    <Input
+                type={showPassword ? 'text' : 'password'} 
+                id="password" 
+                {...register('password')} 
+                placeholder="Enter your password" 
+                className="focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak" />
+              {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
+              <span onClick={() => setShowPassword(!showPassword)}
+                                className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
+
+                >
+{showPassword ? <EyeOffIcon className='text-grayscale-placeholder'/> : <EyeIcon className='text-grayscale-placeholder'/>}
+              </span>
+              </div>
       </div>
 
       <div className='space-y-2'>
@@ -131,7 +148,7 @@ export default function Step2() {
   <div className='flex space-x-4 mt-2'>
             <Button 
               className={`px-4 py-2 rounded-full hover:bg-grayscale-header_weak hover:text-white text-grayscale-label ${selectedTime === '8am - 3pm' ? 'bg-grayscale-header_weak text-white' : 'bg-grayscale-background_weak'}`}
-              onClick={() => handleTimeSelection('8am - 3pm')}
+              onClick={(event) => handleTimeSelection('8am - 3pm', event)}
             >
                   <Image src={MoonIcon} alt='8am - 3pm Icon' className='w-5 h-5 mr-2' />
 
@@ -139,7 +156,7 @@ export default function Step2() {
             </Button>
             <Button 
               className={`px-4 py-2 rounded-full hover:bg-grayscale-header_weak hover:text-white text-grayscale-label ${selectedTime === '3pm - 11pm' ? 'bg-grayscale-header_weak text-white' : 'bg-grayscale-background_weak'}`}
-              onClick={() => handleTimeSelection('3pm - 11pm')}
+              onClick={(event) => handleTimeSelection('3pm - 11pm', event)}
             >
                                 <Image src={SunIcon} alt='3pm - 11pm Icon' className='w-5 h-5 mr-2' />
 
@@ -147,7 +164,7 @@ export default function Step2() {
             </Button>
             <Button 
               className={`px-4 py-2 rounded-full hover:bg-grayscale-header_weak hover:text-white text-grayscale-label ${selectedTime === 'Both' ? 'bg-grayscale-header_weak text-white' : 'bg-grayscale-background_weak'}`}
-              onClick={() => handleTimeSelection('Both')}
+              onClick={(event) => handleTimeSelection('Both', event)}
             >
                                 <Image src={SunFogIcon} alt='Both Icon' className='w-5 h-5 mr-2' />
 
