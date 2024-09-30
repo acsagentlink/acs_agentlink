@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import LogoBlack from '../../../public/logo-black.png'
+import LogoBlack from '../../../public/logo-black.svg'
 import { Sheet, SheetTrigger, SheetContent, SheetClose } from "@/components/ui/sheet"
 import Link from "next/link"
 import Hamburger from '../../../public/hamburger-black.png'

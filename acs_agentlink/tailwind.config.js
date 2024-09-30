@@ -43,9 +43,9 @@ module.exports = {
   				strong: ''
   			},
   			success: {
-  				DEFAULT: '',
+  				DEFAULT: '#2AC769',
   				weak: '',
-  				strong: ''
+  				strong: '#1AB759'
   			},
   			warning: {
   				DEFAULT: '',

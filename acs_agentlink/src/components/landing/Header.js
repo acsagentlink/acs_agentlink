@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Logo from '../../../public/logo.png'
-import LogoBlack from '../../../public/logo-black.png'
+import LogoBlack from '../../../public/logo-black.svg'
 import { Sheet, SheetTrigger, SheetContent, SheetClose } from "@/components/ui/sheet"
 import Link from "next/link"
 import Hamburger from '../../../public/hamburger.png'
@@ -58,7 +58,7 @@ export default function Header() {
               </Link>
               <Link
                 href="/login"
-                className="relative text-grayscale-placeholder hover:rounded-3xl hover:bg-white hover:bg-opacity-10 hover:text-grayscale-background py-3 px-6"
+                className="text-grayscale-placeholder hover:rounded-3xl hover:bg-white hover:bg-opacity-10 hover:text-grayscale-header py-3 px-6"
               >
                 Login
               </Link>
