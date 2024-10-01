@@ -38,7 +38,7 @@ module.exports = {
   				strong: ''
   			},
   			error: {
-  				DEFAULT: '',
+  				DEFAULT: '#FB4E4E',
   				weak: '',
   				strong: ''
   			},

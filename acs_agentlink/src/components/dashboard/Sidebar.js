@@ -23,15 +23,15 @@ const Sidebar = () => {
   const menuItems = [
     { name: 'Dashboard', icon: DashboardIcon, path: '/dashboard' },
     { name: 'My Jobs', icon: JobIcon, path: '/dashboard/jobs' },
-    { name: 'Payment', icon: PaymentIcon, path: '/payment' },
-    { name: 'Analytics', icon: AnalyticsIcon, path: '/analytics' },
-    { name: 'Contract', icon: ContractIcon, path: '/contract' },
-    { name: 'KYC Verification', icon: KycIcon, path: '/kyc' },
-    { name: 'Notifications', icon: NotificationIcon, path: '/notifications' },
+    { name: 'Payment', icon: PaymentIcon, path: '/dashboard/payment' },
+    { name: 'Analytics', icon: AnalyticsIcon, path: '/dashboard/analytics' },
+    { name: 'Contract', icon: ContractIcon, path: '/dashboard/contract' },
+    { name: 'KYC Verification', icon: KycIcon, path: '/dashboard/kyc' },
+    { name: 'Notifications', icon: NotificationIcon, path: '/dashboard/notifications' },
   ];
 
   const settingsItems = [
-    { name: 'Settings', icon: SettingIcon, path: '/settings' }
+    { name: 'Settings', icon: SettingIcon, path: '/dashboard/settings' }
     ];
 
 

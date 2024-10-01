@@ -3,7 +3,7 @@ import ArrowUpGreen from "../../../public/arrow-up-green.svg";
 import Image from "next/image";
 import Chart0 from "../../../public/chart0.svg";
 import Chart1 from "../../../public/chart1.svg";
-import SunIcon from "../../../public/sun.svg";
+import SunIcon from "../../../public/sun-white.svg";
 import Coin from "../../../public/coin.svg";
 import Chart2 from "../../../public/chart2.svg"
 import MTNICON from "../../../public/mtn-logo.svg";
@@ -41,7 +41,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col md:flex-row justify-between items-center">
   <Image className="pt-10" src={Chart0} alt="Chart 0" />
   
   <div className="flex flex-col pb-10 space-y-4 justify-center items-center">
@@ -102,14 +102,14 @@ export default function Dashboard() {
         <div className="flex gap-4 items-center">
           <Image src={MTNICON} />
           <div>
-            <p className="text-base font-bold">MTN Nigeria</p>
+            <p className="text-base font-semibold">MTN Nigeria</p>
             <div className="flex gap-1 items-center">
               <Image src={GlobalIcon} />
               <p className="text-sm text-grayscale-placeholder">Lagos, Nigeria</p>
             </div>
           </div>
         </div>
-        <div className="flex items-center p-3 bg-grayscale-header_weak text-white rounded-full">
+        <div className="flex items-center p-3 bg-grayscale-header_weak text-xs text-white rounded-full">
           <Image src={SunIcon} className="w-5 h-5 mr-2" alt="3pm - 11pm Icon" />
           3pm - 11pm
         </div>
@@ -158,7 +158,7 @@ export default function Dashboard() {
       <div className="p-5 border rounded-2xl bg-grayscale-white space-y-4">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl">🎉</h1>
-          <div className="px-3 py-1 rounded-full text-[#363F72] bg-[#F8F9FC]">
+          <div className="px-3 py-1 rounded-full text-xs text-[#363F72] bg-[#F8F9FC]">
             15th Jan, 2023
           </div>
         </div>
