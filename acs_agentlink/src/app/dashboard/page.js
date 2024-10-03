@@ -1,17 +1,22 @@
+"use client"
+
 import Layout from "../../components/dashboard/Layout";
 import ArrowUpGreen from "../../../public/arrow-up-green.svg";
 import Image from "next/image";
 import Chart0 from "../../../public/chart0.svg";
-import Chart1 from "../../../public/chart1.svg";
 import SunIcon from "../../../public/sun-white.svg";
 import Coin from "../../../public/coin.svg";
-import Chart2 from "../../../public/chart2.svg"
 import MTNICON from "../../../public/mtn-logo.svg";
 import GlobalIcon from "../../../public/global.svg";
 import DiscordIcon from "../../../public/discord.svg";
 import SlackIcon from "../../../public/slack.svg";
 import InstagramIcon from "../../../public/instagram.svg";
 import CreditIcon from "../../../public/credit-notification.png";
+import PerformanceChart from "@/components/dashboard/PerformanceChart";
+import EarningOverview from "@/components/dashboard/EarningOverview";
+import ArrowDown from "../../../public/arrow-down.svg";
+import Link from "next/link";
+
 
 export default function Dashboard() {
 
@@ -41,7 +46,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-center">
+        <div className="flex flex-col lg:flex-row justify-between items-center">
   <Image className="pt-10" src={Chart0} alt="Chart 0" />
   
   <div className="flex flex-col pb-10 space-y-4 justify-center items-center">
@@ -54,14 +59,16 @@ export default function Dashboard() {
       <span className="text-[#667085]">vs last month</span>
     </div>
   </div>
+
+          <PerformanceChart/>
   
-  <Image src={Chart1} alt="Chart 1" />
+
 </div>
 
 
-      <div className="flex flex-col md:flex-row gap-10">
+      <div className="flex flex-col lg:flex-row gap-10">
   {/* Earnings Card */}
-  <div className="md:w-1/3">
+  <div className="lg:w-1/3 w-full">
     <p className="text-lg font-medium text-[#101828] pb-6">Earnings</p>
     <div className="bg-grayscale-header rounded-3xl p-6">
       <div className="p-4 bg-grayscale-white bg-opacity-10 rounded-2xl w-fit">
@@ -83,11 +90,11 @@ export default function Dashboard() {
     </div>
   </div>
 
-  {/* Earnings Overview Chart */}
-  <div className="flex-1">
-    <p className="text-lg font-medium text-[#101828]">Earning overview</p>
-    <Image src={Chart2} alt="Earnings Chart" />
-  </div>
+<div className="flex flex-col md:w-full">
+   <p className="text-lg font-medium text-[#101828]">Earning Overview</p>
+  <EarningOverview/>
+</div>
+ 
 </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-[#101828] pt-10">
@@ -95,7 +102,10 @@ export default function Dashboard() {
   <div>
     <div className="pb-5 flex justify-between items-center">
       <p className="text-lg font-medium">Active jobs</p>
-      <p className="text-sm font-medium">See all</p>
+      <Link href="" className="flex">
+              <p className="text-sm font-medium">See all</p>
+              <Image src={ArrowDown}/>
+      </Link>
     </div>
     <div className="p-5 border rounded-2xl bg-grayscale-white space-y-5">
       <div className="flex justify-between items-center">
@@ -142,7 +152,10 @@ export default function Dashboard() {
 
       <div>
         <p className="text-base font-medium">Performance</p>
-        <Image src={Chart2} />
+        <div className="bg-gradient-to-b from-white to-orange-50 p-4 rounded-lg">
+
+        <EarningOverview/>
+        </div>
       </div>
     </div>
   </div>
@@ -153,7 +166,10 @@ export default function Dashboard() {
     <div>
       <div className="pb-5 flex justify-between items-center">
         <p className="text-lg font-medium">Feedback</p>
-        <p className="text-sm font-medium">See all</p>
+        <Link href="" className="flex">
+              <p className="text-sm font-medium">See all</p>
+              <Image src={ArrowDown}/>
+      </Link>
       </div>
       <div className="p-5 border rounded-2xl bg-grayscale-white space-y-4">
         <div className="flex justify-between items-center">
@@ -174,7 +190,10 @@ export default function Dashboard() {
     <div>
       <div className="pb-5 flex justify-between items-center">
         <p className="text-lg font-medium">Notifications</p>
-        <p className="text-sm font-medium">See all</p>
+        <Link href="" className="flex">
+              <p className="text-sm font-medium">See all</p>
+              <Image src={ArrowDown}/>
+      </Link>
       </div>
       <div className="space-y-5">
         {notifications.map((notification, index) => (

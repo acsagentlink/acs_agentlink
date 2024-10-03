@@ -1,4 +1,3 @@
-const {nextui} = require('@nextui-org/theme');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     darkMode: ["class"],
@@ -7,7 +6,6 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@nextui-org/theme/dist/components/[object Object].js"
   ],
   theme: {
   	extend: {
@@ -15,7 +13,7 @@ module.exports = {
   			grayscale: {
   				background: '#FCFCFC',
   				background_weak: '#F7F7F7',
-  				input: '',
+  				input: '#EFF0F6',
   				line: '#D9DBE9',
   				placeholder: '#A0A3BD',
   				label: '#6E7191',
@@ -82,5 +80,5 @@ module.exports = {
   		}
   	}
   },
-  plugins: [nextui()],
+  plugins: [],
 };

@@ -79,7 +79,7 @@ export default function PaymentSettings() {
   return (
     <Layout>
       <div className="text-[#101828]">
-        <h1 className="text-3xl font-bold mb-6">Payment</h1>
+        <h1 className="text-2xl font-medium mb-6">Payment</h1>
 
         <div className="flex flex-col lg:flex-row sm:flex items-start justify-between gap-8 mb-8">
           

@@ -15,6 +15,7 @@ import InstagramIcon from "../../../../public/instagram.svg";
 import SunIcon from "../../../../public/sun-white.svg";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import EarningOverview from "@/components/dashboard/EarningOverview";
 
 export default function MyJobs() {
     const [activeTab, setActiveTab] = useState("active")
@@ -169,7 +170,10 @@ export default function MyJobs() {
         
               <div>
                 <p className="text-base font-medium text-[#2B2E32]">Performance</p>
-                <Image src={Chart2} alt="Performance Chart" />
+                <div className="w-full  bg-gradient-to-b from-white to-orange-50 p-4 rounded-lg">
+
+                <EarningOverview/>
+                </div>
               </div>
             </div>
           ))}
