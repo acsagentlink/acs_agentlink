@@ -33,7 +33,7 @@ export default function Step3() {
     <h2 className='text-2xl mb-2 text-[#344054]'>Employment Type</h2>
   <div className='flex justify-between items-center'>
     <Label className='flex-1 pr-2 text-base font-normal' htmlFor="fullTime">
-    Are you open to a full-time position? Additionally, note that if employed, you'll be signing an employment contract.
+    Are you open to a full-time position? Additionally, note that if employed, you&apos;ll be signing an employment contract.
     </Label>
     <Controller
     name='fullTime'

@@ -181,7 +181,7 @@ export default function Dashboard() {
         <div>
           <p className="text-base font-medium text-[#171A1C]">High Performer</p>
           <p className="text-xs text-grayscale-label">
-          Keep up the outstanding work, James! We're constantly impressed by your dedication and efficiency. To further maximize your impact, consider taking on a mentorship role or exploring leadership opportunities within the team          </p>
+          Keep up the outstanding work, James! We&apos;re constantly impressed by your dedication and efficiency. To further maximize your impact, consider taking on a mentorship role or exploring leadership opportunities within the team          </p>
         </div>
       </div>
     </div>

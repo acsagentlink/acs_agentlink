@@ -83,7 +83,7 @@ export default function Analytics() {
               High Performer
             </p>
             <p className="text-xs text-grayscale-label">
-              Keep up the outstanding work, James! We're constantly impressed by
+              Keep up the outstanding work, James! We&apos;re constantly impressed by
               your dedication and efficiency. To further maximize your impact,
               consider taking on a mentorship role or exploring leadership
               opportunities within the team.
@@ -102,7 +102,7 @@ export default function Analytics() {
               High Performer
             </p>
             <p className="text-xs text-grayscale-label">
-              Keep up the outstanding work, James! We're constantly impressed by
+              Keep up the outstanding work, James! We&apos;re constantly impressed by
               your dedication and efficiency. To further maximize your impact,
               consider taking on a mentorship role or exploring leadership
               opportunities within the team.
