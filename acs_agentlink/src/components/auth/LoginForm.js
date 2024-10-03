@@ -110,7 +110,7 @@ export default function LoginForm() {
           </div>
 
           <div className='flex mt-5 justify-center gap-1'>
-            <p>Don't have an account?</p>
+            <p>Don&apos;t have an account?</p>
             <Link href='/become-an-agent' className='text-primary'>Become an agent</Link>
           </div>
         </form>
