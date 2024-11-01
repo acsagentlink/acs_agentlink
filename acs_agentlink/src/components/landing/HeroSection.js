@@ -37,8 +37,8 @@ export default function HeroSection() {
      {/* Hero Header and Content */}
      <div className="mt-5 absolute inset-0 text-center justify-center h-full">
       <Header/>
-        <p className="mt-20 text-5xl font-medium text-white">Elevate your prop firm with<br></br>expert support agents</p>
-        <p className='mt-5 text-white font-light opacity-80'>Enhance customer support by hiring our pool of support agents</p>
+        <p className="mt-20 text-5xl font-medium text-white">Welcome to<br></br>A.C.S AgentLink</p>
+        <p className='mt-5 text-white font-light opacity-80'>Elevate your firm with expert customer support</p>
         <div className='mt-16 justify-center flex gap-4 items-center'>
         <Link
                 href="/hire-an-agent"

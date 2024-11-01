@@ -20,13 +20,13 @@ export default function Footer() {
 
         <div className="mt-12 justify-center flex flex-col md:flex-row gap-4 items-center">
           <Link
-            href=""
+            href="hire-an-agent"
             className="relative text-grayscale-white bg-primary rounded-full hover:rounded-full hover:text-grayscale-background py-5 px-8 ring-[rgba(250,133,7,0.1)]  ring-8"
           >
             Hire an agent
           </Link>
           <Link
-            href=""
+            href="become-an-agent"
             className="relative text-grayscale-white rounded-full hover:rounded-full hover:text-grayscale-background py-5 px-6 border"
           >
             Become an agent
@@ -46,9 +46,7 @@ export default function Footer() {
             <p className="mb-4">Company</p>
 
             <div className="flex flex-col opacity-60 space-y-4">
-              <Link href="">Contact us</Link>
-              <Link href="">Community</Link>
-              <Link href="">Blog</Link>
+              <Link href="">Contact us</Link> 
             </div>
           </div>
 
@@ -56,27 +54,26 @@ export default function Footer() {
             <p className="mb-4">Legal</p>
             <div className="flex flex-col opacity-60 space-y-4">
               <Link href="">Privacy policy</Link>
-              <Link href="">Terms and conditions</Link>
-              <Link href="">Funding Policy</Link>
+              <Link href="">Terms and conditions</Link> 
             </div>
           </div>
 
           <div className="flex flex-col">
             <p className="mb-4">Social</p>
             <div className="flex gap-4 opacity-60">
-              <Link href="">
+              {/* <Link href="">
                 <Image src={FacebookIcon} />
               </Link>
               <Link href="">
                 <Image src={TwitterIcon} />
-              </Link>
+              </Link> */}
 
               <Link href="">
                 <Image src={InstagramIcon} />
               </Link>
-              <Link href="">
+              {/* <Link href="">
                 <Image src={LinkedinIcon} />
-              </Link>
+              </Link> */}
             </div>
           </div>
 
