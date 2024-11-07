@@ -75,22 +75,6 @@ export default function ContactForm() {
           
             </div>
 
-
-            <div className='flex justify-between'>
- <div className="flex items-center space-x-2">
-              <Input 
-                type="checkbox" 
-                id="rememberMe" 
-                {...register('rememberMe')}
-                className="h-4 w-4 text-primary border-gray-300 rounded focus:ring-primary focus:ring-2"
-              />
-              <Label htmlFor="rememberMe" className="text-sm text-[#344054]">
-                Remember Me
-              </Label>
-            </div>
-            <Link href='/forget-password' className='text-primary'>Forget password</Link>
-
-            </div>
            
         
 </div>
