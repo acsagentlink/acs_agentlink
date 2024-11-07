@@ -46,12 +46,6 @@ export default function Header() {
                 Home
               </Link>
         <Link
-                href="/#features"
-                className="text-grayscale-placeholder hover:rounded-3xl hover:bg-white hover:bg-opacity-10 hover:text-grayscale-header py-3 px-6"
-              >
-                Features
-              </Link>
-        <Link
                 href="/#faqs"
                 className="text-grayscale-placeholder hover:rounded-3xl hover:bg-white hover:bg-opacity-10 hover:text-grayscale-header py-3 px-6"
               >
@@ -73,13 +67,7 @@ export default function Header() {
                 className="relative text-grayscale-placeholder hover:rounded-3xl hover:bg-grayscale-placeholder hover:text-grayscale-background py-3 px-6"
               >
                 Home
-              </Link>
-        <Link
-                href="/#features"
-                className="relative text-grayscale-placeholder hover:rounded-3xl hover:bg-grayscale-placeholder hover:text-grayscale-background py-3 px-6"
-              >
-                Features
-              </Link>
+              </Link> 
         <Link
                 href="/#faqs"
                 className="relative text-grayscale-placeholder hover:rounded-3xl hover:bg-grayscale-placeholder hover:text-grayscale-background py-3 px-6"

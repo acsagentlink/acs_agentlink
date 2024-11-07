@@ -46,7 +46,7 @@ export default function Footer() {
             <p className="mb-4">Company</p>
 
             <div className="flex flex-col opacity-60 space-y-4">
-              <Link href="">Contact us</Link> 
+              <Link href="contact">Contact us</Link> 
             </div>
           </div>
 
