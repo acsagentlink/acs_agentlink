@@ -16,7 +16,7 @@ export default function Services() {
         src={ServiceIcon1}
          />
         <p className="font-medium text-xl text-grayscale-header pt-5">Social Media Support</p>
-        <p className="text-grayscale-placeholder text-lg">Our agents manage the support aspect of your firm's social media accounts, such as Discord, Instagram, Facebook, Twitter, and more. They handle client inquiries, engage with your community, and ensure timely responses to maintain a positive online presence.</p>
+        <p className="text-grayscale-placeholder text-lg">Our agents manage the support aspect of your firm&apos;s social media accounts, such as Discord, Instagram, Facebook, Twitter, and more. They handle client inquiries, engage with your community, and ensure timely responses to maintain a positive online presence.</p>
 
         </div>
 

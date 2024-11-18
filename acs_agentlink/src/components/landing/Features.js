@@ -41,7 +41,7 @@ export default function Features() {
         width={250} 
         />
         <p className="font-medium text-2xl text-grayscale-header pt-5">Multi-Platform Expertise</p>
-        <p className="text-grayscale-placeholder text-xl">Our agents are equipped to manage customer interactions across multiple platforms, such as social media (Discord, Instagram, Facebook, Twitter, and more), live chat, and email. Whether it's responding to inquiries, or maintaining active communication, we ensure consistent support across all channels.</p>
+        <p className="text-grayscale-placeholder text-xl">Our agents are equipped to manage customer interactions across multiple platforms, such as social media (Discord, Instagram, Facebook, Twitter, and more), live chat, and email. Whether it&apos;s responding to inquiries, or maintaining active communication, we ensure consistent support across all channels.</p>
 
         </div>
 

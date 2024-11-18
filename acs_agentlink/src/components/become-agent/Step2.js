@@ -1,222 +1,274 @@
-import { Controller } from 'react-hook-form';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
-import { useFormContext } from 'react-hook-form';
-import { useState } from 'react';
-import { Button } from '../ui/button';
-import Image from 'next/image';
-import FileIcon from '../../../public/file-icon.svg';
-import { useEffect } from 'react';
-import MoonIcon from '../../../public/moon.svg';
-import SunIcon from '../../../public/sun.svg';
-import SunFogIcon from '../../../public/sun-fog.svg';
-import { EyeIcon, EyeOffIcon } from 'lucide-react';
+import { Controller } from "react-hook-form";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { useFormContext } from "react-hook-form";
+import { useState, useEffect } from "react";
 
 export default function Step2() {
-  const [showPassword, setShowPassword] = useState(false);
+  const {
+    register,
+    setValue,
+    watch,
+    control,
+    formState: { errors },
+  } = useFormContext();
 
-  const { register, setValue, watch, control, formState: { errors } } = useFormContext();
+    // Watch the value of the work experience switch
+    const experience = watch("experience");
+    const hasExperience = watch("hasExperience", true); // Default to true
+  
+    // Effect to handle experience value based on switch state
+    useEffect(() => {
+      if (!hasExperience) {
+        setValue("experience", "None");
+      } else if (experience === "None") {
+        setValue("experience", "");
+      }
+    }, [hasExperience, experience, setValue]);
 
-  const [selectedTime, setSelectedTime] = useState(watch('preferredTime'));
+  // Watch the state of dynamic fields
+  const employerCount = watch("employerCount", 1); // Default to 1 employer
 
-   const handleTimeSelection = (time, event) => {
-    event.preventDefault();
-    setSelectedTime(time);
-     setValue('preferredTime', time, { shouldValidate: true });
-   };
+  const [showOtherFields, setShowOtherFields] = useState({
+    emailSupport: false,
+    liveChat: false,
+    socialMedia: false,
+    otherPlatforms: false,
+  });
 
-  const resumeFile = watch('resume');
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setValue('resume', file, { shouldValidate: true }); 
-    }
+  const handleOtherChange = (category, isChecked) => {
+    setShowOtherFields((prev) => ({
+      ...prev,
+      [category]: isChecked,
+    }));
   };
-  
-
-   // Watch the value of the work experience switch
-   const workExperience = watch('workExperience');
-   const hasWorkExperience = watch('hasWorkExperience', true); // Default to true
-  
-  // Effect to handle workExperience value based on switch state
-  useEffect(() => {
-    if (!hasWorkExperience) {
-      setValue('workExperience', 'None');
-    } else if (workExperience === 'None') {
-      setValue('workExperience', '')
-    }
-  }, [hasWorkExperience, workExperience, setValue]);
 
   return (
     <>
-    <h2 className='text-2xl mb-2'>Personal Information</h2>
+      <h2 className="text-2xl mb-2">Experience</h2>
       <div className="space-y-5">
-<div className='space-y-2'>
-        <Label className="text-[#344054]" htmlFor="name">Name</Label>
-        <Input id="name" {...register('name')} placeholder="Enter your name" className="focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"/>
-        {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
-      </div>
-      <div className='space-y-2'>
-        <Label className="text-[#344054]" htmlFor="country">Country</Label>
-        <Input id="country" {...register('country')} className="focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"/>
-        {errors.country && <p className='text-red-500'>{errors.country.message}</p>}
-      </div>
-      <div className='space-y-2'>
-        <Label className="text-[#344054]" htmlFor="phone_number">Phone number</Label>
-        <Input id="phone_number" {...register('phone_number')} className="focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"/>
-        {errors.phone_number && <p className='text-red-500'>{errors.phone_number.message}</p>}
-
-      </div>
-      <div className='space-y-2'>
-        <Label className="text-[#344054]" htmlFor="telegram">Telegram username</Label>
-        <Input id="telegram" {...register('telegram')} placeholder="@username" className="focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"/>
-        {errors.telegram && <p className='text-red-500'>{errors.telegram.message}</p>}
-      </div>
-      <div className='space-y-2'>
-        <Label className="text-[#344054]" htmlFor="email">Email</Label>
-        <Input id="email" type="email" {...register('email')} placeholder="Enter your email address" className="focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"/>
-        {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
-      </div>
-     
-      
-      <div className='space-y-2'>
-        <Label className="text-[#344054]" htmlFor="password">Password</Label>
-        <div className='relative'>
-                    <Input
-                type={showPassword ? 'text' : 'password'} 
-                id="password" 
-                {...register('password')} 
-                placeholder="Enter your password" 
-                className="focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak" />
-              {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
-              <span onClick={() => setShowPassword(!showPassword)}
-                                className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
-
-                >
-{showPassword ? <EyeOffIcon className='text-grayscale-placeholder'/> : <EyeIcon className='text-grayscale-placeholder'/>}
-              </span>
-              </div>
-      </div>
-
-      <div className='space-y-2'>
-  <h2 className='text-2xl mb-2 text-[#344054]'>Work Experience</h2>
-  <div className='flex justify-between items-center'>
-    <Label className='text-base font-normal flex-1 pr-2' htmlFor="workExperience">
-      Have you worked with proprietary firms before? If so, please provide details
-    </Label>
-    <Controller
-    name='hasWorkExperience'
-    control={control}
-    defaultValue={true}
-    render={({ field: { value, onChange} }) => (
-          <Switch checked={value} onCheckedChange={onChange} />
-
-    )}
-    />
-  </div>
-  {hasWorkExperience && (
-      <Input className="h-28 focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak" id="workExperience" {...register('workExperience')} placeholder="Tell us about your experience" />
-
-  )}
-          {errors.workExperience && <p className='text-red-500'>{errors.workExperience.message}</p>}
-
-</div>
-
-<div className='space-y-2'>
-  <h2 className='text-2xl mb-2 text-[#344054]'>Availability and Commitment</h2>
-  
-  <div className='flex justify-between items-center'>
-    <Label className='text-base font-normal flex-1 pr-2' htmlFor="availability">
-      Can you commit to 7-8 hours per day for 5 days a week?
-    </Label>
-    <Controller
-    name='availability'
-    control={control}
-    defaultValue={true}
-    render={({ field: { value, onChange } }) => (
-          <Switch checked={value} onCheckedChange={onChange} />
-
-    )}
-    />
-  </div>
-  <p className='flex-1 pr-2'>
-      Please specify your preferred start time for work?
-    </p>
-
-  <div className='flex space-x-4 mt-2'>
-            <Button 
-              className={`px-4 py-2 rounded-full hover:bg-grayscale-header_weak hover:text-white text-grayscale-label ${selectedTime === '8am - 3pm' ? 'bg-grayscale-header_weak text-white' : 'bg-grayscale-background_weak'}`}
-              onClick={(event) => handleTimeSelection('8am - 3pm', event)}
-            >
-                  <Image src={MoonIcon} alt='8am - 3pm Icon' className='w-5 h-5 mr-2' />
-
-              8am - 3pm
-            </Button>
-            <Button 
-              className={`px-4 py-2 rounded-full hover:bg-grayscale-header_weak hover:text-white text-grayscale-label ${selectedTime === '3pm - 11pm' ? 'bg-grayscale-header_weak text-white' : 'bg-grayscale-background_weak'}`}
-              onClick={(event) => handleTimeSelection('3pm - 11pm', event)}
-            >
-                                <Image src={SunIcon} alt='3pm - 11pm Icon' className='w-5 h-5 mr-2' />
-
-              3pm - 11pm
-            </Button>
-            <Button 
-              className={`px-4 py-2 rounded-full hover:bg-grayscale-header_weak hover:text-white text-grayscale-label ${selectedTime === 'Both' ? 'bg-grayscale-header_weak text-white' : 'bg-grayscale-background_weak'}`}
-              onClick={(event) => handleTimeSelection('Both', event)}
-            >
-                                <Image src={SunFogIcon} alt='Both Icon' className='w-5 h-5 mr-2' />
-
-              Both
-            </Button>
-          </div>
-
-          {/* Register the preferredTime field */}
-          <Input 
-            type="hidden" 
-            {...register('preferredTime')} // Register the hidden input
-          />
-
-          {/* preferredTime Error Message */}
-          {errors.preferredTime && <p className='text-red-500'>{errors.preferredTime.message}</p>}
-</div>
-
-          {/* Resume Upload Section */}
-          <div className='space-y-2'>
-        <Label className="text-[#344054]" htmlFor="resume">
-        </Label>
-        <h2 className='text-2xl mb-2 text-[#344054]'>Resume</h2>
-
-        <div 
-          className="border-dashed border-2 border-gray-300 rounded-lg p-6 text-center cursor-pointer"
-          onClick={() => document.getElementById('resume').click()}
-        >
-          <Input 
-            id="resume" 
-            type="file" 
-            {...register('resume', { required: "Resume is required" })} 
-            className="hidden " 
-            onChange={handleFileChange}
-          />
-          <div className="text-gray-500 flex flex-col items-center">
-                 <Image
-            src={FileIcon}
-            alt='File Icon'
+        {/* Prior experience */}
+        <div className="space-y-2">
+          <div className="flex justify-between items-center">
+            <Label htmlFor="experience">
+              Do you have prior experience in customer support?
+            </Label>
+            <Controller
+              name="hasExperience"
+              control={control}
+              defaultValue={true}
+              render={({ field: { value, onChange } }) => (
+                <Switch checked={value} onCheckedChange={onChange} />
+              )}
             />
-            <p>Upload or drag and drop</p>
-            <p className="text-sm text-gray-400">max. 2MB</p>
-           
-            {resumeFile && <p className="text-sm text-green-500 mt-2">{resumeFile.name}</p>}
           </div>
+          {hasExperience && (
+            <Input
+              id="experience"
+              {...register("experience")}
+              placeholder="Elaborate on your experience, highlighting specific roles, and achievements"
+              className="h-28 focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"
+            />
+          )}
+          {errors.experience && (
+            <p className="text-red-500">{errors.experience.message}</p>
+          )}
         </div>
-        {errors.resume && <p className='text-red-500'>{errors.resume.message}</p>}
-      </div>
-      
 
+                 {/* Email Support */}
+      <div>
+        <label className="block font-medium text-gray-700">Email Support</label>
+        <div className="space-y-2 mt-2">
+          <label className="flex items-center">
+            <input type="checkbox" {...register("emailSupport.zendesk")} />
+            <span className="ml-2">Zendesk</span>
+          </label>
+          <label className="flex items-center">
+            <input type="checkbox" {...register("emailSupport.intercom")} />
+            <span className="ml-2">Intercom</span>
+          </label>
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              {...register("emailSupport.other")}
+              onChange={(e) =>
+                handleOtherChange("emailSupport", e.target.checked)
+              }
+            />
+            <span className="ml-2">Other</span>
+          </label>
+          {showOtherFields.emailSupport && (
+            <input
+              type="text"
+              placeholder="Please specify"
+              {...register("emailSupport.otherDetails")}
+              className="mt-2 border rounded-md w-full p-2"
+            />
+          )}
+        </div>
       </div>
-    
-     
+
+      {/* Live Chat Support */}
+      <div>
+        <label className="block font-medium text-gray-700">Live Chat Support</label>
+        <div className="space-y-2 mt-2">
+          <label className="flex items-center">
+            <input type="checkbox" {...register("liveChat.liveChat")} />
+            <span className="ml-2">Live Chat</span>
+          </label>
+          <label className="flex items-center">
+            <input type="checkbox" {...register("liveChat.tidio")} />
+            <span className="ml-2">Tidio</span>
+          </label>
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              {...register("liveChat.other")}
+              onChange={(e) => handleOtherChange("liveChat", e.target.checked)}
+            />
+            <span className="ml-2">Other</span>
+          </label>
+          {showOtherFields.liveChat && (
+            <input
+              type="text"
+              placeholder="Please specify"
+              {...register("liveChat.otherDetails")}
+              className="mt-2 border rounded-md w-full p-2"
+            />
+          )}
+        </div>
+      </div>
+
+      {/* Social Media Support */}
+      <div>
+        <label className="block font-medium text-gray-700">Social Media Support</label>
+        <div className="space-y-2 mt-2">
+          <label className="flex items-center">
+            <input type="checkbox" {...register("socialMedia.discord")} />
+            <span className="ml-2">Discord</span>
+          </label>
+          <label className="flex items-center">
+            <input type="checkbox" {...register("socialMedia.instagram")} />
+            <span className="ml-2">Instagram</span>
+          </label>
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              {...register("socialMedia.other")}
+              onChange={(e) =>
+                handleOtherChange("socialMedia", e.target.checked)
+              }
+            />
+            <span className="ml-2">Other</span>
+          </label>
+          {showOtherFields.socialMedia && (
+            <input
+              type="text"
+              placeholder="Please specify"
+              {...register("socialMedia.otherDetails")}
+              className="mt-2 border rounded-md w-full p-2"
+            />
+          )}
+        </div>
+      </div>
+
+      {/* Other Platforms */}
+      <div>
+        <label className="block font-medium text-gray-700">Other Platforms</label>
+        <div className="space-y-2 mt-2">
+          <label className="flex items-center">
+            <input type="checkbox" {...register("otherPlatforms.whatsapp")} />
+            <span className="ml-2">WhatsApp</span>
+          </label>
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              {...register("otherPlatforms.other")}
+              onChange={(e) =>
+                handleOtherChange("otherPlatforms", e.target.checked)
+              }
+            />
+            <span className="ml-2">Other</span>
+          </label>
+          {showOtherFields.otherPlatforms && (
+            <input
+              type="text"
+              placeholder="Please specify"
+              {...register("otherPlatforms.otherDetails")}
+              className="mt-2 border rounded-md w-full p-2"
+            />
+          )}
+        </div>
+      </div>
+
+        {/* Employer Count */}
+        <div className="space-y-2">
+          <Label className="text-sm font-normal">Please, list up to two of your previous employers in customer support, providing the following information for each. If you have only one employer, that is acceptable.</Label>
+            <label className="flex items-center">
+              <input
+                type="radio"
+                value={1}
+                {...register("employerCount")}
+                defaultChecked
+              />
+              <span className="ml-2">I have only one employer</span>
+            </label>
+            <label className="flex items-center">
+              <input type="radio" 
+              value={2} 
+              {...register("employerCount")} />
+              <span className="ml-2">I have two employers</span>
+            </label>
+        </div>
+
+        {/* Employer Fields */}
+        {[...Array(Number(employerCount))].map((_, index) => (
+          <div key={index} className="space-y-4">
+            <Label>Employer {index + 1}</Label>
+
+            <div className="space-y-2">
+              <Label>Company Name</Label>
+              <Input
+                {...register(`employer[${index}].company_name`)}
+                placeholder="Enter company name"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label>Position Held</Label>
+              <Input
+                {...register(`employer[${index}].position_held`)}
+                placeholder="Enter position"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label>Duration of Employment</Label>
+              <Input
+                {...register(`employer[${index}].duration`)}
+                placeholder="Enter duration"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label>Supervisor's Name</Label>
+              <Input
+                {...register(`employer[${index}].supervisor_name`)}
+                placeholder="Enter supervisor's name"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label>Reference Contact Information</Label>
+              <Input
+                {...register(`employer[${index}].reference_contact`)}
+                placeholder="Enter contact information"
+              />
+            </div>
+          </div>
+        ))}
+      </div>
     </>
   );
 }

@@ -1,82 +1,212 @@
-import { useFormContext } from 'react-hook-form';
-import PropFirmIcon from '../../../public/prop-icon.svg';
-import ForexIcon from '../../../public/forex-icon.svg';
-import CryptoIcon from '../../../public/crypto-icon.svg';
-import EcommerceIcon from '../../../public/ecommerce-icon.svg';
-import Image from 'next/image';
+import { Controller } from "react-hook-form";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { useFormContext } from "react-hook-form";
+import { useState } from "react";
+import Image from "next/image";
+import FileIcon from "../../../public/file-icon.svg";
+import { useEffect } from "react";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 
 export default function Step1() {
-  const { register, setValue, watch, formState: { errors } } = useFormContext();
+  const [showPassword, setShowPassword] = useState(false);
 
-  const selectedType = watch('type');
+  const {
+    register,
+    setValue,
+    watch,
+    control,
+    formState: { errors },
+  } = useFormContext();
 
-  const handleTypeSelection = (value) => {
+  const resumeFile = watch("resume");
 
-    setValue('type', value, { shouldValidate: true });
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setValue("resume", file, { shouldValidate: true });
+    }
   };
+
+  // Watch the value of the has another job switch
+  const anotherJob = watch("anotherJob");
+  const hasAnotherJob = watch("hasAnotherJob", true); // Default to true
+
+  // Effect to handle anotherJob value based on switch state
+  useEffect(() => {
+    if (!hasAnotherJob) {
+      setValue("anotherJob", "None");
+    } else if (anotherJob === "None") {
+      setValue("anotherJob", "");
+    }
+  }, [hasAnotherJob, anotherJob, setValue]);
 
   return (
     <>
-    <h2 className='text-2xl mb-4'>What firm do you want to work for?</h2>
-    <div className="space-y-5">
-        <CardItem
-          icon={PropFirmIcon}
-          title="Prop firm"
-          description="Assist high-performing firms with customer support"
-          value="1" // Value to pass when selected
-          selected={selectedType === "1"} // Check if this option is selected
-          onSelect={handleTypeSelection}
-        />
-        <CardItem
-          icon={ForexIcon}
-          title="Crypto exchange"
-          description="Provide customer support for navigating the crypto market"
-          value="2"
-          selected={selectedType === "2"}
-          onSelect={handleTypeSelection}
-        />
-        <CardItem
-          icon={CryptoIcon}
-          title="Forex broker"
-          description="Offer account and trading platform support to forex traders"
-          value="3"
-          selected={selectedType === "3"}
-          onSelect={handleTypeSelection}
-        />
-        <CardItem
-          icon={EcommerceIcon}
-          title="E-commerce website"
-          description="Help customers with order inquiries, product issues, and returns"
-          value="4"
-          selected={selectedType === "4"}
-          onSelect={handleTypeSelection}
-        />
+      <h2 className="text-2xl mb-2">Personal Information</h2>
+      <div className="space-y-5">
+        {/* Fullname */}
+        <div className="space-y-2">
+          <Label className="text-[#344054]" htmlFor="name">
+            Name
+          </Label>
+          <Input
+            id="name"
+            {...register("name")}
+            placeholder="Enter your name"
+            className="focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"
+          />
+          {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+        </div>
 
-        {/* Hidden input to register the selected service */}
-        <input type="hidden" {...register('type', { required: "Please select one" })} />
+        {/* Email */}
+        <div className="space-y-2">
+          <Label className="text-[#344054]" htmlFor="email">
+            Email
+          </Label>
+          <Input
+            id="email"
+            type="email"
+            {...register("email")}
+            placeholder="Enter your email address"
+            className="focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"
+          />
+          {errors.email && (
+            <p className="text-red-500">{errors.email.message}</p>
+          )}
+        </div>
 
-        {/* Error message for validation */}
-        {errors.type && <p className='text-red-500'>{errors.type.message}</p>}
+        {/* Password */}
+        <div className="space-y-2">
+          <Label className="text-[#344054]" htmlFor="password">
+            Password
+          </Label>
+          <div className="relative">
+            <Input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              {...register("password")}
+              placeholder="Enter your password"
+              className="focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"
+            />
+            {errors.password && (
+              <p className="text-red-500">{errors.password.message}</p>
+            )}
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
+            >
+              {showPassword ? (
+                <EyeOffIcon className="text-grayscale-placeholder" />
+              ) : (
+                <EyeIcon className="text-grayscale-placeholder" />
+              )}
+            </span>
+          </div>
+        </div>
+
+        {/* Whatsapp number */}
+        <div className="space-y-2">
+          <Label className="text-[#344054]" htmlFor="whatsapp_number">
+            Whatsapp number
+          </Label>
+          <Input
+            id="whatsapp_number"
+            {...register("whatsapp_number")}
+            className="focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"
+          />
+          {errors.whatsapp_number && (
+            <p className="text-red-500">{errors.whatsapp_number.message}</p>
+          )}
+        </div>
+
+        {/* Telegram username */}
+        <div className="space-y-2">
+          <Label className="text-[#344054]" htmlFor="telegram">
+            Telegram username
+          </Label>
+          <Input
+            id="telegram"
+            {...register("telegram")}
+            placeholder="@username"
+            className="focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"
+          />
+          {errors.telegram && (
+            <p className="text-red-500">{errors.telegram.message}</p>
+          )}
+        </div>
+
+        {/* Location */}
+        <div className="space-y-2">
+          <Label className="text-[#344054]" htmlFor="location">
+            Location
+          </Label>
+          <Input
+            id="location"
+            {...register("location")}
+            className="focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"
+          />
+          {errors.location && (
+            <p className="text-red-500">{errors.location.message}</p>
+          )}
+        </div>
+
+        {/* Availability */}
+        <div className="space-y-2">
+          <h2 className="text-2xl mb-2 text-[#344054]">
+            Availability
+          </h2>
+
+            <Label
+              className="text-[#344054]"
+              htmlFor="availability"
+            >
+              What days, and hours are you available to work?
+            </Label>
+            <Input
+            id="availability"
+            {...register("availability")}
+            className="focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"
+          />
+          {errors.availability && (
+            <p className="text-red-500">{errors.availability.message}</p>
+          )}
+        </div>
+
+        {/* Do you currently hold another job? */}
+        <div className="space-y-2">
+          <div className="flex justify-between items-center">
+            <Label
+              className="text-[#344054]"
+              htmlFor="anotherJob"
+            >
+              Do you currently hold another job?
+            </Label>
+            <Controller
+              name="hasAnotherJob"
+              control={control}
+              defaultValue={true}
+              render={({ field: { value, onChange } }) => (
+                <Switch checked={value} onCheckedChange={onChange} />
+              )}
+            />
+          </div>
+          {hasAnotherJob && (
+            <Input
+              className="h-28 focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"
+              id="anotherJob"
+              {...register("anotherJob")}
+              placeholder="Describe your current role, and responsibilities"
+            />
+          )}
+          {errors.anotherJob && (
+            <p className="text-red-500">{errors.anotherJob.message}</p>
+          )}
+        </div>
+
+      
       </div>
     </>
   );
 }
-
-const CardItem = ({ icon, title, description, value, selected, onSelect }) => {
-    return (
-      <div
-        className={`flex items-center p-4 border rounded-lg mb-4 cursor-pointer ${
-          selected ? "bg-primary bg-opacity-5 border-primary" : "bg-white border-grayscale-input"
-        }`}
-        onClick={() => onSelect(value)} // Call onSelect with value
-      >
-        <div className="flex-shrink-0">
-          <Image src={icon} alt='Icon Image' className="w-8 h-8 text-gray-800" />
-        </div>
-        <div className="ml-4">
-          <h3 className="text-lg font-semibold text-grayscale-header">{title}</h3>
-          <p className="text-sm text-grayscale-placeholder">{description}</p>
-        </div>
-      </div>
-    );
-  };

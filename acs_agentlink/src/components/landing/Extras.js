@@ -20,7 +20,7 @@ export default function Extras() {
           Looking for a reliable, professional team to handle your proprietary trading firm’s customer support? With A.C.S AgentLink, you gain access to expert agents who can manage social
           media inquiries, live chat, and email communications 24/7. Our agents are dedicated to providing top-tier service, so you can focus on growing your business.
            <div className="h-5"></div>
-          Ready to elevate your firm's support experience? Hire an agent today, and ensure your clients receive fast, and reliable assistance whenever they need it.
+          Ready to elevate your firm&apos;s support experience? Hire an agent today, and ensure your clients receive fast, and reliable assistance whenever they need it.
           </p>
           <div className="pt-10 pb-10">  
           <Link

@@ -1,112 +1,90 @@
-import { Controller } from 'react-hook-form';
-import { Label } from '@/components/ui/label';
-import { useFormContext } from 'react-hook-form';
-import { Switch } from '@/components/ui/switch';
-import { Input } from '@/components/ui/input';
-import { useEffect } from 'react';
+import { Controller } from "react-hook-form";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { useFormContext } from "react-hook-form";
 
 export default function Step3() {
-  const { register, setValue, watch, control, formState: { errors } } = useFormContext();
+  const {
+    register,
+    setValue,
+    watch,
+    control,
+    formState: { errors },
+  } = useFormContext();
 
-  watch('fullTime', true)
+  const languagesList = ["English", "French", "Spanish", "German", "Mandarin"]; // Example languages
+  const watchedLanguages = watch("languages", []); // Watch the form state for languages
 
-   watch('constructMessage', true)
- watch('promptResponse', true)
-
-  // Watch the value of the trading knowledge switch
-  const tradingKnowledge = watch('tradingKnowledge');
-  const hasTradingKnowledge = watch('hasTradingKnowledge', true); // Default to true
-  
-  // Effect to handle tradingKnowledge value based on switch state
-  useEffect(() => {
-    if (!hasTradingKnowledge) {
-      setValue('tradingKnowledge', 'None');
-    } else if (tradingKnowledge === 'None') {
-      setValue('tradingKnowledge', '')
-    }
-  }, [hasTradingKnowledge, tradingKnowledge, setValue]);
+  const handleLanguageChange = (index, field, value) => {
+    setValue(`languages.${index}.${field}`, value);
+  };
 
   return (
     <>
-    <div className='space-y-5'>
- <div className='space-y-2'>
-    <h2 className='text-2xl mb-2 text-[#344054]'>Employment Type</h2>
-  <div className='flex justify-between items-center'>
-    <Label className='flex-1 pr-2 text-base font-normal' htmlFor="fullTime">
-    Are you open to a full-time position? Additionally, note that if employed, you&apos;ll be signing an employment contract.
-    </Label>
-    <Controller
-    name='fullTime'
-    control={control}
-    defaultValue={true}
-    render={({ field: {value, onChange}} ) => (
-          <Switch checked={value} onCheckedChange={onChange} />
+          <h2 className="text-2xl mb-2">Skills and Qualifications</h2>
+      <div className="space-y-5">
+        {/* Languages & Skills Section */}
+        <div className="space-y-2">
+          {languagesList.map((language, index) => {
+            const selected = watchedLanguages?.[index]?.selected || false;
+            const percent = watchedLanguages?.[index]?.percent || 0;
 
-    )}
-    />
-  </div>
-  </div>
+            return (
+              <div
+                key={language}
+                className="flex items-center gap-4 border-b pb-4"
+              >
+                <Input
+                  type="checkbox"
+                  id={`languages.${index}.selected`}
+                  className="h-5 w-5"
+                  checked={selected}
+                  onChange={(e) =>
+                    handleLanguageChange(index, "selected", e.target.checked)
+                  }
+                />
 
-   <div className='space-y-2'>
-      <h2 className='text-2xl mb-2 text-[#344054]'>Communication Skills</h2>
+                <Label
+                  htmlFor={`languages.${index}.selected`}
+                  className="text-lg font-medium flex-1"
+                >
+                  {language}
+                </Label>
 
-  <div className='flex justify-between items-center pb-2'>
-    <Label className='flex-1 pr-2 text-base font-normal'  htmlFor="constructMessage">
-    Do you possess strong punctuation and message construction skills?
-    </Label>
-    <Controller
-    name='constructMessage'
-    control={control}
-    defaultValue={true}
-    render={({ field: {value, onChange}} ) => (
-          <Switch checked={value} onCheckedChange={onChange} />
+                <div className="flex items-center gap-4 w-1/2">
+                  <Input
+                    type="range"
+                    {...register(`languages.${index}.percent`)}
+                    id={`languages.${index}.percent`}
+                    value={percent}
+                    disabled={!selected} // Disable slider if language is not selected
+                    onChange={(e) =>
+                      handleLanguageChange(
+                        index,
+                        "percent",
+                        parseInt(e.target.value)
+                      )
+                    }
+                    min={0}
+                    max={100}
+                    step={10}
+                    className={`w-full ${
+                      selected ? "cursor-pointer" : "cursor-not-allowed"
+                    }`}
+                  />
+                  <span className="text-sm font-medium">{percent}%</span>
+                </div>
+              </div>
+            );
+          })}
 
-    )}
-    />
-  </div>
-  <div className='flex justify-between items-center'>
-    <Label className='flex-1 pr-2 text-base font-normal' htmlFor="promptResponse">
-    Can you provide clear and prompt responses to complex messages?
-    </Label>
-    <Controller
-    name='promptResponse'
-    control={control}
-    defaultValue={true}
-    render={({ field: {value, onChange}} ) => (
-          <Switch checked={value} onCheckedChange={onChange} />
+          {errors.languages && (
+            <p className="text-red-500 text-sm">{errors.languages.message}</p>
+          )}
+        </div>
 
-    )}
-    />
-  </div>
-  </div>
 
-   <div className='space-y-2'>
-  <h2 className='text-2xl mb-2 text-[#344054]'>Trading Knowledge</h2>
-  <div className='flex justify-between items-center'>
-    <Label className='flex-1 pr-2 text-base font-normal' htmlFor="tradingKnowledge">
-    Do you have any knowledge of trading? If yes, please provide details. Any prior experience in trading would be advantageous
-    </Label>
-    <Controller
-    name='hasTradingKnowledge'
-    control={control}
-    defaultValue={true}
-    render={({ field: {value, onChange}} ) => (
-          <Switch checked={value} onCheckedChange={onChange} />
-
-    )}
-    />
-  </div>
-  {hasTradingKnowledge && (
-      <Input className="h-28 focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak" id="tradingKnowledge" {...register('tradingKnowledge')} placeholder="Tell us about your experience" />
-
-  )}
-  {errors.tradingKnowledge && <p className='text-red-500'>{errors.tradingKnowledge.message}</p>}
-
-</div>
-
-    </div>
-
-    
+      </div>
     </>
   );
 }

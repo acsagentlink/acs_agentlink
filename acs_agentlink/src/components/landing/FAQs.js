@@ -169,7 +169,7 @@ export default function FAQs() {
           >
             <AccordionItem value="item-7">
               <AccordionTrigger className="text-[#170F49]">
-              What if I have special requirements for my firm's customer support?
+              What if I have special requirements for my firm&apos;s customer support?
               </AccordionTrigger>
               <AccordionContent className="text-grayscale-label">
               We understand that each proprietary trading firm is unique. During the hiring process, we will discuss any specific needs or custom requirements to ensure that the agents provided are a perfect fit for your business.
@@ -194,7 +194,7 @@ export default function FAQs() {
               How can I apply to become an agent with A.C.S AgentLink?  
               </AccordionTrigger>
               <AccordionContent className="text-grayscale-label">
-              Simply click on the "Become an Agent" button on our website, fill out the application form, and submit it for review.
+              Simply click on the &quot;Become an Agent&quot; button on our website, fill out the application form, and submit it for review.
               </AccordionContent>
             </AccordionItem>
           </Accordion>

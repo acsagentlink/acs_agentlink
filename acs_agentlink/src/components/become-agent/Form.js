@@ -12,6 +12,7 @@ import Step4 from './Step4';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
+import Step5 from './Step5';
 
 export default function BecomeAgentForm() {
 
@@ -38,6 +39,12 @@ export default function BecomeAgentForm() {
     setLoading(true);
     const formData = new FormData();
 
+     // Transform language data
+  const transformedLanguages = (data.languages || []).map((language, index) => ({
+    language: language.name,
+    percent: language.percent || 0,
+  }));
+
     // Append form fields to FormData
     formData.append('name', data.name);
     formData.append('email', data.email);
@@ -45,10 +52,14 @@ export default function BecomeAgentForm() {
     formData.append('password', data.password);
     formData.append('country', data.country);
     formData.append('telegram', data.telegram);
-    formData.append('resume', data.resume);
     formData.append('work_experience', data.workExperience);
     formData.append('availability', data.availability ? 'yes' : 'no');
-    formData.append('preferred_time', data.preferredTime);
+
+    transformedLanguages.forEach((lang, index) => {
+      formData.append(`languages[${index}][language]`, lang.language);
+      formData.append(`languages[${index}][percent]`, lang.percent);
+    });
+
     formData.append('full_time', data.fullTime ? 'yes' : 'no');
     formData.append('construct_message', data.constructMessage ? 'yes' : 'no');
     formData.append('prompt_response', data.promptResponse ? 'yes' : 'no');
@@ -57,6 +68,9 @@ export default function BecomeAgentForm() {
     formData.append('pc_consistent', data.consistent_pc ? 'yes' : 'no');
     formData.append('internet', data.internetAccess ? 'yes' : 'no');
     formData.append('type', data.type);
+    formData.append('resume', data.resume);
+
+    
 
     try {
       await axios.post('/api/become-an-agent', formData);
@@ -70,6 +84,11 @@ export default function BecomeAgentForm() {
   const next = async () => {
     const fields = steps[currentStep].fields;
     const output = await trigger(fields, { shouldFocus: true });
+
+    if (!output) {
+      console.error("Validation failed for fields:", fields);
+      return;
+    }
 
     if (output) {
       if (currentStep < steps.length - 1) {
@@ -157,6 +176,16 @@ export default function BecomeAgentForm() {
               <Step4 />
             </motion.div>
           )}
+
+{currentStep === 4 && (
+            <motion.div
+              initial={{ x: '50%', opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+            >
+              <Step5 />
+            </motion.div>
+          )}
         </form>
 
 {/* Display error message below the form if there is any */}
@@ -186,8 +215,9 @@ export default function BecomeAgentForm() {
 }
 
 const steps = [
-  { id: '1', fields: ['type'] },
-  { id: '2', fields: ['name', 'email', 'phone_number', 'telegram', 'country', 'password', 'workExperience', 'availability', 'preferredTime', 'resume'] },
-  { id: '3', fields: ['fullTime', 'constructMessage', 'promptResponse', 'tradingKnowledge'] },
-  { id: '4', fields: ['has_pc', 'consistentPc', 'internetAccess'] }
+  { id: '1', fields: ['name', 'email', 'password', 'whatsapp_number', 'telegram', 'location', 'availability', 'anotherJob', 'resume'] },
+  { id: '2', fields: ['experience', 'email_support', 'live_chat_support', 'social_media_support', 'other_platform', 'password', 'workExperience', 'availability', 'preferredTime', 'resume'] },
+  { id: '3', fields: ['languages'] },
+  { id: '4', fields: ['has_pc', 'consistentPc', 'internetAccess'] },
+  { id: '5', fields: ['']}
 ];

@@ -7,12 +7,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
-import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import Link from 'next/link';
 
 export default function ContactForm() {
-  const [errorMessage, setErrorMessage] = useState(); 
-  const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState();
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
@@ -49,34 +47,66 @@ export default function ContactForm() {
         {/* Single screen form */}
         <form className='py-8' onSubmit={handleSubmit(processForm)}>
           <div className="space-y-5">
+
+                     {/* Name */}
+          <div className='space-y-2'>
+            <Label className="text-[#344054]" htmlFor="name">Name</Label>
+              <Input type='name' id="name" {...register('name')} placeholder="Enter your name" className="focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"/>
+              {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
+            </div>
+
+                     {/* Email */}
             <div className='space-y-2'>
               <Label className="text-[#344054]" htmlFor="email">Email address</Label>
               <Input type='email' id="email" {...register('email')} placeholder="Enter your email address" className="focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"/>
               {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
             </div>
 
-            <div className='space-y-2 relative'>
-              <Label className="text-[#344054]" htmlFor="password">Password</Label>
-              <div className='relative'>
-                    <Input
-                type={showPassword ? 'text' : 'password'} 
-                id="password" 
-                {...register('password')} 
-                placeholder="Enter your password" 
-                className="focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak" />
-              {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
-              <span onClick={() => setShowPassword(!showPassword)}
-                                className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
-
-                >
-{showPassword ? <EyeOffIcon className='text-grayscale-placeholder'/> : <EyeIcon className='text-grayscale-placeholder'/>}
-              </span>
+                     {/* Reason for Contact */}
+                     <div className='space-y-2'>
+              <Label className="text-[#344054]">Reason for Contact</Label>
+              <div className="space-y-4">
+                {["General Inquiry", "Requesting Information about Services", "Becoming an Agent", "Partnership Opportunities", "Other"].map((reason, index) => (
+                  <label key={index} className="flex items-center space-x-3 cursor-pointer">
+                    <Input 
+                      type="radio" 
+                      {...register('reason')} 
+                      value={reason} 
+                      className="w-5 h-5 accent-primary"
+                    />
+                    <span className="text-base text-grayscale-header">{reason}</span>
+                  </label>
+                ))}
               </div>
-          
+              {errors.reason && <p className='text-red-500'>{errors.reason.message}</p>}
             </div>
 
-           
-        
+                     {/* Message */}
+            <div className='space-y-2'>
+              <Label className="text-[#344054]" htmlFor="message">Message</Label>
+              <Input type='message' id="message" {...register('message')} placeholder="Write your message..." className="h-28 focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"/>
+              {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
+            </div>
+
+                             {/* How did you hear about us */}
+                             <div className='space-y-2'>
+              <Label className="text-[#344054]">How did you hear about us?</Label>
+              <div className="space-y-4">
+                {["Search Engine (Google, Bing, etc.", "Social Media", "Referral", "Advertisement", "Other"].map((hear_about_us, index) => (
+                  <label key={index} className="flex items-center space-x-3 cursor-pointer">
+                    <Input 
+                      type="radio" 
+                      {...register('hear_about_us')} 
+                      value={hear_about_us} 
+                      className="w-5 h-5 accent-primary"
+                    />
+                    <span className="text-base text-grayscale-header">{hear_about_us}</span>
+                  </label>
+                ))}
+              </div>
+              {errors.reason && <p className='text-red-500'>{errors.reason.message}</p>}
+            </div>
+
 </div>
 
           {/* Display error message below the form if there is any */}
@@ -89,14 +119,10 @@ export default function ContactForm() {
           {/* Submit Button */}
           <div className='pt-10'>
             <Button type="submit" className='w-full btn-primary rounded-full p-8 text-md text-grayscale-white'>
-              {loading ? (<div className='spinner'></div>) : "Login" }  
+              {loading ? (<div className='spinner'></div>) : "Submit" }  
             </Button>
           </div>
 
-          <div className='flex mt-5 justify-center gap-1'>
-            <p>Don&apos;t have an account?</p>
-            <Link href='/become-an-agent' className='text-primary'>Become an agent</Link>
-          </div>
         </form>
       </section>
     </FormProvider>
