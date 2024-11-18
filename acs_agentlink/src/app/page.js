@@ -8,7 +8,7 @@ import Services from "@/components/landing/Services";
 
 export default function Home() {
   return (
-    <main className="bg-grayscale-white flex flex-col items-center w-full min-h-screen">
+    <main className=" bg-grayscale-white flex flex-col items-center w-full min-h-screen">
       <HeroSection/>
       <HeroSubSection/>
       <Features/>
