@@ -252,7 +252,7 @@ export default function Step2() {
             </div>
 
             <div className="space-y-2">
-              <Label>Supervisor's Name</Label>
+              <Label>Supervisor&apos;s Name</Label>
               <Input
                 {...register(`employer[${index}].supervisor_name`)}
                 placeholder="Enter supervisor's name"
