@@ -11,7 +11,7 @@ export default function Features() {
     return (
         <div className="w-full mt-10 p-5 sm:p-20 pb-0 sm:pb-0 max-w-7xl mx-auto" id="features">
             <div className="w-fit bg-grayscale-header rounded-full mb-10 p-5">
-                <p className="text-grayscale-white">⭐️️ Why Choose A.C.S AgentLink?</p>
+                <p className="text-grayscale-white">⭐️️   Why Choose A.C.S AgentLink?</p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -83,7 +83,7 @@ export default function Features() {
                 </div>
 
                 <div className="border border-grayscale-line p-5 sm:p-10 space-y-3 rounded-3xl sm:col-span-2">
-                    <div className="flex flex-col md:flex-row items-center gap-5">
+                    <div className="flex flex-col md:flex-row gap-5">
                         <Image src={FeatureIcon7} className="w-full max-w-[150px] sm:max-w-[200px]" />
                         <div>
                             <p className="font-medium text-lg sm:text-2xl text-grayscale-header pt-5">

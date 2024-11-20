@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Extras() {
   return (
     <div
-      className="w-full mt-10 mb-28 items-center p-10 sm:p-20 pb-0 sm:pb-0"
+      className="w-full mt-10 mb-28 items-center p-5 sm:p-20 pb-0 sm:pb-0"
       id="extras"
     > 
 
@@ -16,12 +16,12 @@ export default function Extras() {
           <p className="font-medium text-2xl text-white pt-5">
             Hire an Agent
           </p>
-          <p className=" text-grayscale-placeholder text-xl">
+          <div className=" text-grayscale-placeholder text-xl">
           Looking for a reliable, professional team to handle your proprietary trading firm’s customer support? With A.C.S AgentLink, you gain access to expert agents who can manage social
           media inquiries, live chat, and email communications 24/7. Our agents are dedicated to providing top-tier service, so you can focus on growing your business.
-           <div className="h-5"></div>
+           <p className="h-5"></p>
           Ready to elevate your firm&apos;s support experience? Hire an agent today, and ensure your clients receive fast, and reliable assistance whenever they need it.
-          </p>
+          </div>
           <div className="pt-10 pb-10">  
           <Link
                 href="/hire-an-agent"
@@ -38,11 +38,11 @@ export default function Extras() {
           <p className="font-medium text-2xl text-grayscale-header pt-5">
             Become an Agent
           </p>
-          <p className="text-grayscale-placeholder text-xl">
+          <div className="text-grayscale-placeholder text-xl">
           Are you a highly skilled customer support professional looking to work with proprietary trading firms? At A.C.S AgentLink, we’re always searching for experienced agents who can deliver exceptional service across social media, live chat, and email platforms. Join our elite team, and help firms maintain strong client relationships while enjoying the flexibility of remote work.
-          <div className="h-5"></div>
+          <p className="h-5"></p>
           Ready to make an impact? Apply now to become part of A.C.S AgentLink’s professional support network.
-          </p>
+          </div>
           <div className="pt-10 pb-10">  
           <Link
                 href="/become-an-agent"

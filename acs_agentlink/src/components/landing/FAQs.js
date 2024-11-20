@@ -15,8 +15,8 @@ export default function FAQs() {
     setActiveItem(value);
   };
 
-  return (
-    <div className="w-full mt-8 p-5 sm:p-20 pb-0 sm:pb-0 max-w-7xl mx-auto" id="faqs">
+  return ( 
+    <div className="w-full mt-10 p-5 sm:p-20 sm:pt-0 sm:pb-0 max-w-7xl mx-auto" id="faqs">
       <div className="w-fit bg-grayscale-header rounded-full mb-10 p-5">
         <p className="text-grayscale-white">📝 ️   Frequently asked questions</p>
       </div>

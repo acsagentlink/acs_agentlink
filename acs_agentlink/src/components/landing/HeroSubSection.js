@@ -5,7 +5,7 @@ import RocketIcon from '../../../public/rocket-icon.png'
 export default function HeroSubSection() {
     return (
         <div className="w-full mt-28 items-center">
-            <div className="flex flex-col sm:flex-row gap-5 px-10 sm:items-stretch">
+            <div className="flex flex-col sm:flex-row gap-5 sm:px-10 px-5 sm:items-stretch">
                 <div className="sm:w-1/3 min-h-[300px] flex-shrink-0">
                     <Image
                         src={HeroSubSectionImage}

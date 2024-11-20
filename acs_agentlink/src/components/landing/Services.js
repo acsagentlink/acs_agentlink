@@ -7,7 +7,7 @@ export default function Services() {
     return (
         <div className="w-full mt-10 p-5 sm:p-20 pb-0 max-w-7xl mx-auto" id="services">
             <div className="w-fit bg-grayscale-header rounded-full mb-10 p-4 sm:p-5">
-                <p className="text-grayscale-white text-sm sm:text-base">💬️ Our Services</p>
+                <p className="text-grayscale-white text-sm sm:text-base">💬 ️  Our Services</p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
