@@ -14,35 +14,86 @@ export default function Step2() {
     formState: { errors },
   } = useFormContext();
 
-    // Watch the value of the work experience switch
-    const experience = watch("experience");
-    const hasExperience = watch("hasExperience", true); // Default to true
-  
-    // Effect to handle experience value based on switch state
-    useEffect(() => {
-      if (!hasExperience) {
-        setValue("experience", "None");
-      } else if (experience === "None") {
-        setValue("experience", "");
-      }
-    }, [hasExperience, experience, setValue]);
+  // Support experience functions
+  const support_experience = watch("support_experience", "1");
 
-  // Watch the state of dynamic fields
+  // Customer support functions
+  const [showOtherFields, setShowOtherFields] = useState({});
+
+  const categories = [
+    {
+      id: "emailSupport",
+      label: "Email Support",
+      options: ["Zendesk", "Intercom", "Other"],
+    },
+    {
+      id: "liveChat",
+      label: "Live Chat Support",
+      options: ["Live Chat", "Tidio", "Zendesk", "Intercom", "Other"],
+    },
+    {
+      id: "socialMedia",
+      label: "Social Media Support",
+      options: ["Discord", "Instagram", "Facebook", "Twitter", "Other"],
+    },
+    {
+      id: "otherPlatforms",
+      label: "Other Platforms",
+      options: ["Whatsapp", "Other"],
+    },
+  ];
+
+  const handleOtherChange = (categoryId, isChecked) => {
+    setShowOtherFields((prev) => ({ ...prev, [categoryId]: isChecked }));
+    if (!isChecked) {
+      setValue(`${categoryId}.otherDetails`, ""); // Clear "Other" input if unchecked
+    }
+  };
+
+  const combineOptions = (categoryId) => {
+    const options = watch(categoryId) || {};
+    const selectedOptions = Object.entries(options)
+      .filter(([key, value]) => key !== "otherDetails" && value) // Exclude 'otherDetails' and keep checked options
+      .map(([key]) => key.charAt(0).toUpperCase() + key.slice(1)); // Capitalize first letter
+
+    const otherDetails = options.otherDetails?.trim();
+    return otherDetails ? [...selectedOptions, otherDetails] : selectedOptions;
+  };
+
+  const updateCombinedValues = (categoryId) => {
+    const combined = combineOptions(categoryId);
+    setValue(`${categoryId}Combined`, combined);
+  };
+
+  useEffect(() => {
+    const currentCount = watch("employerCount");
+    setValue(
+      "employers",
+      Array.from({ length: currentCount }, (_, index) => ({
+        company_name: "",
+        position_held: "",
+        duration: "",
+        supervisor_name: "",
+        contact: "",
+        ...(watch(`employers[${index}]`) || {}),
+      }))
+    );
+  }, [watch("employerCount")]);
+  
+
+  // Employer functions
   const employerCount = watch("employerCount", 1); // Default to 1 employer
 
-  const [showOtherFields, setShowOtherFields] = useState({
-    emailSupport: false,
-    liveChat: false,
-    socialMedia: false,
-    otherPlatforms: false,
-  });
-
-  const handleOtherChange = (category, isChecked) => {
-    setShowOtherFields((prev) => ({
-      ...prev,
-      [category]: isChecked,
-    }));
-  };
+// Clear extra employer fields when switching back to 1 employer
+const clearEmployerFields = () => {
+  if (employerCount === 1) {
+    setValue(`employers[1].company_name`, "");
+    setValue(`employers[1].position_held`, "");
+    setValue(`employers[1].duration`, "");
+    setValue(`employers[1].supervisor_name`, "");
+    setValue(`employers[1].contact`, "");
+  }
+};
 
   return (
     <>
@@ -51,219 +102,175 @@ export default function Step2() {
         {/* Prior experience */}
         <div className="space-y-2">
           <div className="flex justify-between items-center">
-            <Label htmlFor="experience">
+            <Label htmlFor="support_experience">
               Do you have prior experience in customer support?
             </Label>
             <Controller
-              name="hasExperience"
+              name="support_experience"
               control={control}
-              defaultValue={true}
+              defaultValue="1"
               render={({ field: { value, onChange } }) => (
-                <Switch checked={value} onCheckedChange={onChange} />
+                <Switch
+                  checked={value === "1"}
+                  onCheckedChange={(checked) => {
+                    onChange(checked ? "1" : "0");
+                    // Update prior experience field
+                    setValue(
+                      "support_experience_description",
+                      checked ? "" : "none",
+                      { shouldValidate: true }
+                    );
+                  }}
+                />
               )}
             />
           </div>
-          {hasExperience && (
-            <Input
-              id="experience"
-              {...register("experience")}
+          {support_experience == true && (
+            <textarea
+              id="support_experience_description"
+              {...register("support_experience_description")}
               placeholder="Elaborate on your experience, highlighting specific roles, and achievements"
-              className="h-28 focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"
+              className="text-base h-28 w-full resize-none p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"
             />
           )}
-          {errors.experience && (
-            <p className="text-red-500">{errors.experience.message}</p>
+          {errors.support_experience_description && (
+            <p className="text-red-500">
+              {errors.support_experience_description.message}
+            </p>
           )}
         </div>
 
-                 {/* Email Support */}
-      <div>
-        <label className="block font-medium text-gray-700">Email Support</label>
-        <div className="space-y-2 mt-2">
-          <label className="flex items-center">
-            <input type="checkbox" {...register("emailSupport.zendesk")} />
-            <span className="ml-2">Zendesk</span>
-          </label>
-          <label className="flex items-center">
-            <input type="checkbox" {...register("emailSupport.intercom")} />
-            <span className="ml-2">Intercom</span>
-          </label>
-          <label className="flex items-center">
-            <input
-              type="checkbox"
-              {...register("emailSupport.other")}
-              onChange={(e) =>
-                handleOtherChange("emailSupport", e.target.checked)
-              }
-            />
-            <span className="ml-2">Other</span>
-          </label>
-          {showOtherFields.emailSupport && (
-            <input
-              type="text"
-              placeholder="Please specify"
-              {...register("emailSupport.otherDetails")}
-              className="mt-2 border rounded-md w-full p-2"
-            />
-          )}
+        {/* Customer Support */}
+        <div className="space-y-4">
+          <p className="text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-[#344054]">
+            Which platforms have you utilized for customer support?
+          </p>
+          {categories.map((category) => (
+            <div key={category.id} className="mb-6">
+              <Label className="font-medium font-sm">{category.label}</Label>
+              <div className="space-y-2 mt-2">
+                {category.options.map((option) => (
+                  <label key={option} className="flex items-center">
+                    <input
+                      type="checkbox"
+                      {...register(`${category.id}.${option.toLowerCase()}`, {
+                        onChange: () => updateCombinedValues(category.id),
+                      })}
+                      onClick={() =>
+                        option === "Other" &&
+                        handleOtherChange(
+                          category.id,
+                          !watch(`${category.id}.other`)
+                        )
+                      }
+                    />
+                    <span className="ml-2">{option}</span>
+                  </label>
+                ))}
+                {watch(`${category.id}.other`) && (
+                  <Input
+                    type="text"
+                    placeholder="Specify other"
+                    {...register(`${category.id}.otherDetails`, {
+                      onChange: () => updateCombinedValues(category.id),
+                    })}
+                    className="mt-2 w-80 p-2 h-12 rounded-xl focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"
+                  />
+                )}
+                {/* {errors[category.id]?.otherDetails && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors[category.id].otherDetails.message}
+              </p>
+            )} */}
+              </div>
+              {/* <div className="mt-2">
+                <Label>Selected {category.label} Options:</Label>
+                <p className="text-gray-700">
+                  {JSON.stringify(watch(`${category.id}Combined`) || [])}
+                </p>
+              </div> */}
+            </div>
+          ))}
         </div>
-      </div>
 
-      {/* Live Chat Support */}
-      <div>
-        <label className="block font-medium text-gray-700">Live Chat Support</label>
-        <div className="space-y-2 mt-2">
-          <label className="flex items-center">
-            <input type="checkbox" {...register("liveChat.liveChat")} />
-            <span className="ml-2">Live Chat</span>
-          </label>
-          <label className="flex items-center">
-            <input type="checkbox" {...register("liveChat.tidio")} />
-            <span className="ml-2">Tidio</span>
-          </label>
-          <label className="flex items-center">
-            <input
-              type="checkbox"
-              {...register("liveChat.other")}
-              onChange={(e) => handleOtherChange("liveChat", e.target.checked)}
-            />
-            <span className="ml-2">Other</span>
-          </label>
-          {showOtherFields.liveChat && (
-            <input
-              type="text"
-              placeholder="Please specify"
-              {...register("liveChat.otherDetails")}
-              className="mt-2 border rounded-md w-full p-2"
-            />
-          )}
-        </div>
-      </div>
-
-      {/* Social Media Support */}
-      <div>
-        <label className="block font-medium text-gray-700">Social Media Support</label>
-        <div className="space-y-2 mt-2">
-          <label className="flex items-center">
-            <input type="checkbox" {...register("socialMedia.discord")} />
-            <span className="ml-2">Discord</span>
-          </label>
-          <label className="flex items-center">
-            <input type="checkbox" {...register("socialMedia.instagram")} />
-            <span className="ml-2">Instagram</span>
-          </label>
-          <label className="flex items-center">
-            <input
-              type="checkbox"
-              {...register("socialMedia.other")}
-              onChange={(e) =>
-                handleOtherChange("socialMedia", e.target.checked)
-              }
-            />
-            <span className="ml-2">Other</span>
-          </label>
-          {showOtherFields.socialMedia && (
-            <input
-              type="text"
-              placeholder="Please specify"
-              {...register("socialMedia.otherDetails")}
-              className="mt-2 border rounded-md w-full p-2"
-            />
-          )}
-        </div>
-      </div>
-
-      {/* Other Platforms */}
-      <div>
-        <label className="block font-medium text-gray-700">Other Platforms</label>
-        <div className="space-y-2 mt-2">
-          <label className="flex items-center">
-            <input type="checkbox" {...register("otherPlatforms.whatsapp")} />
-            <span className="ml-2">WhatsApp</span>
-          </label>
-          <label className="flex items-center">
-            <input
-              type="checkbox"
-              {...register("otherPlatforms.other")}
-              onChange={(e) =>
-                handleOtherChange("otherPlatforms", e.target.checked)
-              }
-            />
-            <span className="ml-2">Other</span>
-          </label>
-          {showOtherFields.otherPlatforms && (
-            <input
-              type="text"
-              placeholder="Please specify"
-              {...register("otherPlatforms.otherDetails")}
-              className="mt-2 border rounded-md w-full p-2"
-            />
-          )}
-        </div>
-      </div>
-
-        {/* Employer Count */}
+        {/* Employers */}
         <div className="space-y-2">
-          <Label className="text-sm font-normal">Please, list up to two of your previous employers in customer support, providing the following information for each. If you have only one employer, that is acceptable.</Label>
-            <label className="flex items-center">
-              <input
-                type="radio"
-                value={1}
-                {...register("employerCount")}
-                defaultChecked
-              />
-              <span className="ml-2">I have only one employer</span>
-            </label>
-            <label className="flex items-center">
-              <input type="radio" 
-              value={2} 
-              {...register("employerCount")} />
-              <span className="ml-2">I have two employers</span>
-            </label>
+          <p className="pb-2 pt-2 text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-[#344054]">
+            Please, list up to two of your previous employers in customer
+            support, providing the following information for each. If you have
+            only one employer, that is acceptable.
+          </p>
+          <Label className="flex items-center">
+            <input
+              type="radio"
+              value={1}
+              {...register("employerCount", {
+                onChange: clearEmployerFields,
+              })}
+              defaultChecked
+            />
+            <p className="text-base text-grayscale-header ml-2">
+              I have only one employer
+            </p>
+          </Label>
+          <Label className="flex items-center">
+            <input type="radio" 
+            value={2}
+             {...register("employerCount", {
+              onChange: clearEmployerFields
+             })} />
+            <span className="text-base text-grayscale-header ml-2">
+              I have two employers
+            </span>
+          </Label>
         </div>
-
         {/* Employer Fields */}
         {[...Array(Number(employerCount))].map((_, index) => (
           <div key={index} className="space-y-4">
-            <Label>Employer {index + 1}</Label>
+            <Label>Employer: {index + 1}</Label>
 
             <div className="space-y-2">
               <Label>Company Name</Label>
               <Input
-                {...register(`employer[${index}].company_name`)}
+                {...register(`employers[${index}].company_name`, { required: true })}
                 placeholder="Enter company name"
+                className="h-12 rounded-xl focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"
               />
             </div>
 
             <div className="space-y-2">
               <Label>Position Held</Label>
               <Input
-                {...register(`employer[${index}].position_held`)}
+                {...register(`employers[${index}].position_held`)}
                 placeholder="Enter position"
+                className="h-12 rounded-xl focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"
               />
             </div>
 
             <div className="space-y-2">
               <Label>Duration of Employment</Label>
               <Input
-                {...register(`employer[${index}].duration`)}
+                {...register(`employers[${index}].duration`)}
                 placeholder="Enter duration"
+                className="h-12 rounded-xl focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"
               />
             </div>
 
             <div className="space-y-2">
               <Label>Supervisor&apos;s Name</Label>
               <Input
-                {...register(`employer[${index}].supervisor_name`)}
+                {...register(`employers[${index}].supervisor_name`, { required: true })}
                 placeholder="Enter supervisor's name"
+                className="h-12 rounded-xl focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"
               />
             </div>
 
             <div className="space-y-2">
               <Label>Reference Contact Information</Label>
               <Input
-                {...register(`employer[${index}].reference_contact`)}
+                {...register(`employers[${index}].contact`)}
                 placeholder="Enter contact information"
+                className="h-12 rounded-xl focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"
               />
             </div>
           </div>
