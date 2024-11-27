@@ -18,7 +18,7 @@ export default function Login() {
                     />
                 </div>
 
-                <div className="p-5 sm:p-0 flex-1 max-w-lg lg:pr-16 lg:mt-16 mt:mb-16">
+                <div className="m-auto p-5 sm:p-0 flex-1 md:max-w-lg max-w-[32rem] lg:mt-16 mt:mb-16">
                     <p className="text-[#101828] text-5xl font-semibold">Login</p>
                     <LoginForm />
                 </div>
