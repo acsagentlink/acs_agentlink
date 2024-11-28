@@ -12,8 +12,6 @@ if (!token) {
   return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
 }
 
-console.log("Token from cookie:", token);
-
     // Make the request to your external API
     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/dashboard`, {
       headers: {
