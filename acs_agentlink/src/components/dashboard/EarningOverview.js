@@ -2,28 +2,19 @@
 
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip } from 'recharts'
 
-const data = [
-  { month: 'Jan', earnings: 2800 },
-  { month: 'Feb', earnings: 2900 },
-  { month: 'Mar', earnings: 2850 },
-  { month: 'Apr', earnings: 3000 },
-  { month: 'May', earnings: 3100 },
-  { month: 'Jun', earnings: 3300 },
-  { month: 'Jul', earnings: 3200 },
-  { month: 'Aug', earnings: 3350 },
-  { month: 'Sep', earnings: 3400 },
-  { month: 'Oct', earnings: 3300 },
-  { month: 'Nov', earnings: 3500 },
-  { month: 'Dec', earnings: 3700 },
-]
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-export default function EarningOverview() {
+export default function EarningOverview({ earningsChartData }) {
 
+  const chartData = earningsChartData?.earning_monthly_data?.map((value, index) => ({
+    month: months[index],
+    earnings: value,
+  })) || [];  
 
   return (
       <ResponsiveContainer width="100%" height={300} className="text-[#101828]">
         <LineChart
-          data={data}
+          data={chartData}
           margin={{ top: 20, left: 20, bottom: 5 }}
           
         >

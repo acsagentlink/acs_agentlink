@@ -1,22 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 
-const data = [
-  { month: 'Jan', Performance: 62 },
-  { month: 'Feb', Performance: 64 },
-  { month: 'Mar', Performance: 63 },
-  { month: 'Apr', Performance: 68 },
-  { month: 'May', Performance: 74 },
-  { month: 'Jun', Performance: 81 },
-  { month: 'Jul', Performance: 85 },
-  { month: 'Aug', Performance: 83 },
-  { month: 'Sep', Performance: 87 },
-  { month: 'Oct', Performance: 91 },
-  { month: 'Nov', Performance: 93 },
-  { month: 'Dec', Performance: 98 },
-]
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-export default function PerformanceChart() {
+
+export default function PerformanceChart({ feedbackChartData }) {
   const [chartWidth, setChartWidth] = useState('50%');
 
   useEffect(() => {
@@ -41,10 +29,15 @@ export default function PerformanceChart() {
     };
   }, []);
   
+    const chartData = feedbackChartData.monthly_data.map((value, index) => ({
+      month: months[index],
+      Performance: value
+    }));
+
   return (
     <ResponsiveContainer width={chartWidth} height={200} className="text-[#101828]">
       <LineChart
-        data={data}
+        data={chartData}
         margin={{
           top: 5,
           left: 20,

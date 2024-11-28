@@ -39,7 +39,7 @@ export default function Notifications() {
       <div className="space-y-4 w-full">
         {notifications.map((notification, index) => (
           <div key={index} className="p-2 border rounded-2xl bg-grayscale-white flex gap-5 items-center">
-          <Image src={CreditIcon} className="w-20 h-20" />
+          <Image src={CreditIcon} alt='Credit Icon Image' className="w-20 h-20" />
           <div>
             <p className="text-base font-medium text-[#171A1C]">{notification.title}</p>
             <p className="text-sm text-grayscale-header">{notification.message}</p>

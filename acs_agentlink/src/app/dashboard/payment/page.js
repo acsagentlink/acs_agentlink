@@ -109,7 +109,7 @@ export default function PaymentSettings() {
               <div className="bg-white p-4 rounded-lg border relative">
                 {!isEditing && (
                   <Button onClick={handleEdit} variant="ghost" size="sm" className="absolute top-2 right-2 text-grayscale-placeholder">
-                    <Image src={EditIcon} className="w-4 h-4 mr-2" />
+                    <Image src={EditIcon} alt='Edit Icon Image' className="w-4 h-4 mr-2" />
                     Edit
                   </Button>
                 )}
@@ -170,7 +170,7 @@ export default function PaymentSettings() {
               <div className="bg-white p-4 rounded-lg border relative">
                 {!isEditing && (
                   <Button onClick={handleEdit} variant="ghost" size="sm" className="absolute top-2 right-2 text-grayscale-placeholder">
-                    <Image src={EditIcon} className="w-4 h-4 mr-2" />
+                    <Image src={EditIcon} alt='Edit Icon Image' className="w-4 h-4 mr-2" />
                     Edit
                   </Button>
                 )}

@@ -16,9 +16,17 @@ export function middleware(req) {
     }
   }
 
+  const token = req.cookies.get('token'); // Retrieve token from cookies
+  const isDashboardPage = req.nextUrl.pathname.startsWith('/dashboard'); // Check if it's the dashboard
+
+  // Redirect to login if token is missing on protected pages
+  if (isDashboardPage && !token) {
+    return NextResponse.redirect(new URL('/login', req.url));
+  }
+
   return NextResponse.next(); // Allow all other requests
 }
 
 export const config = {
-  matcher: ['/become-an-agent/success'],
+  matcher: ['/dashboard/:path*', '/become-an-agent/success'],
 };

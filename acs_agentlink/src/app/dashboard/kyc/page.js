@@ -128,7 +128,7 @@ const StepIndicator = ({ currentStep, completed }) => {
     return (
       <div className='bg-grayscale-background rounded'>
         <div className="text-center space-y-4">
-          <Image src={SuccessIcon} className="w-50 h-50" />
+          <Image src={SuccessIcon} alt='Success Icon Image' className="w-50 h-50" />
         <h2 className="text-xl font-semibold text-grayscale-header_weak">Pending Approval</h2>
         <p className="text-gray-500">You will be verified when your details are approved</p>
       </div>

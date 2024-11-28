@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import Link from 'next/link';
+import { setCookie } from 'cookies-next';
 
 export default function LoginForm() {
   const [errorMessage, setErrorMessage] = useState(); 
@@ -33,12 +34,20 @@ export default function LoginForm() {
     formData.append('password', data.password);
 
     try {
-      await axios.post('/api/auth/login', formData);
+      const response = await axios.post('/api/auth/login', formData);
+
+          // Store the token in a secure, HTTP-only cookie
+    setCookie('token', response.data.token, { path: '/' });
+
+    
+
       router.push('/dashboard');
     } catch (error) {
       setLoading(false);
       const apiError = error.response?.data?.error || error.response?.data?.message || 'An unexpected error occurred.';
       setErrorMessage(apiError);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -51,7 +60,7 @@ export default function LoginForm() {
           <div className="space-y-5">
             <div className='space-y-2'>
               <Label className="text-[#344054]" htmlFor="email">Email address</Label>
-              <Input type='email' id="email" {...register('email')} placeholder="Enter your email address" className="focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"/>
+              <Input type='email' id="email" {...register('email')} placeholder="Enter your email address" className="h-12 focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"/>
               {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
             </div>
 
@@ -63,7 +72,7 @@ export default function LoginForm() {
                 id="password" 
                 {...register('password')} 
                 placeholder="Enter your password" 
-                className="focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak" />
+                className="h-12 focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak" />
               {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
               <span onClick={() => setShowPassword(!showPassword)}
                                 className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
