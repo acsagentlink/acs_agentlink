@@ -10,7 +10,6 @@ import KycIcon from '../../../public/kyc-icon.svg';
 import NotificationIcon from '../../../public/notification-icon.svg';
 import SettingIcon from '../../../public/setting-icon.svg';
 import Logo from '../../../public/logo-black.svg';
-import UserAvatar from '../../../public/Avatar.svg';
 import Image from 'next/image';
 import { Button } from '../ui/button';
 import LogoutIcon from '../../../public/logout.svg';
@@ -21,7 +20,6 @@ const Sidebar = () => {
 
   const router = useRouter();
   const currentRoute = usePathname();
-
 
   const menuItems = [
     { name: 'Dashboard', icon: DashboardIcon, path: '/dashboard' },
