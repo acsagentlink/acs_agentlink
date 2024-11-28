@@ -14,8 +14,11 @@ import UserAvatar from '../../../public/Avatar.svg';
 import Image from 'next/image';
 import { Button } from '../ui/button';
 import LogoutIcon from '../../../public/logout.svg';
+import { useUser } from "../../context/UserContext";
 
 const Sidebar = () => {
+  const user = useUser();
+
   const router = useRouter();
   const currentRoute = usePathname();
 
@@ -83,15 +86,16 @@ const Sidebar = () => {
       <div className='flex items-center justify-between'>
         <div className='flex items-center'>
           <Image
-          src={UserAvatar}
+          src={user.image}
           alt="User Avatar"
           width={40}
           height={40}
           className='rounded-full'
           />
           <div className='ml-3'>
-            <p className='text-sm font-semibold text-grayscale-header'>James Steve</p>
-            <p className='text-xs text-grayscale-label'>james@acs.com</p>
+            <p className='text-sm font-semibold text-grayscale-header'>                {user.name}
+            </p>
+            <p className='text-xs text-grayscale-label'>{user.email}</p>
           </div>
         </div>
         <Button
