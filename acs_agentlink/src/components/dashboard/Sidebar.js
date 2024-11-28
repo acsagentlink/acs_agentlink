@@ -37,6 +37,17 @@ const Sidebar = () => {
     { name: 'Settings', icon: SettingIcon, path: '/dashboard/settings' }
     ];
 
+      // Conditional rendering to prevent errors if user is null
+  if (!user) {
+    return (
+      <div className="h-screen bg-white hidden sm:flex flex-col justify-between w-72 border-r border-[#EAECF0]">
+        <div className="p-8">
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
 
   return (
     <div className="h-screen bg-white hidden sm:flex flex-col justify-between w-72 border-r border[#EAECF0]">
