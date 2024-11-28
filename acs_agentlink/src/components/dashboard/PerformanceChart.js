@@ -28,11 +28,11 @@ export default function PerformanceChart({ feedbackChartData }) {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-  
-    const chartData = feedbackChartData.monthly_data.map((value, index) => ({
+
+    const chartData = feedbackChartData?.monthly_data?.map((value, index) => ({
       month: months[index],
       Performance: value
-    }));
+    })) || [];
 
   return (
     <ResponsiveContainer width={chartWidth} height={200} className="text-[#101828]">

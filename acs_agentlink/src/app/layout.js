@@ -1,6 +1,7 @@
 import { Outfit } from "next/font/google";
 import "./globals.css";
 import { UserProvider } from "@/context/UserContext";
+import { DashboardProvider } from "@/context/DashboardContext";
 
 const outfit = Outfit({ 
   subsets: ['latin'], 
@@ -15,7 +16,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={outfit.className}><UserProvider>{children}</UserProvider></body>
+      <body className={outfit.className}>
+        <DashboardProvider>
+        <UserProvider>{children}</UserProvider>
+        </DashboardProvider>
+</body>
     </html>
   );
 }

@@ -6,6 +6,7 @@ import Chart0 from "../../../../public/chart0.svg";
 import ArrowUpGreen from "../../../../public/arrow-up-green.svg";
 import PerformanceChart from "@/components/dashboard/PerformanceChart";
 import { useState } from "react";
+import { useFeedbackChart } from "@/context/DashboardContext";
 
 export default function Analytics() {
   const [selectedMonth, setSelectedMonth] = useState("Feb");
@@ -15,6 +16,8 @@ export default function Analytics() {
     "Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
   ];
+
+  const feedbackChart = useFeedbackChart();
 
   return (
     <Layout>
@@ -35,7 +38,7 @@ export default function Analytics() {
             </div>
           </div>
 
-          <PerformanceChart />
+          <PerformanceChart feedbackChartData={feedbackChart} />
         </div>
 
         {/* Month Selection and Year Dropdown */}
