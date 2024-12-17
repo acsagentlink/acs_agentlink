@@ -22,16 +22,16 @@ export default function Step1() {
         <div className="space-y-2">
         <h2 className="text-2xl mb-2">Company Details</h2>
 
-          <Label htmlFor="name">
+          <Label htmlFor="companyName">
             Company name
           </Label>
           <Input
-            id="name"
-            {...register("name")}
+            id="companyName"
+            {...register("companyName")}
             placeholder="Enter your company name"
             className="h-12 rounded-xl focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"
           />
-          {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+          {errors.companyName && <p className="text-red-500">{errors.companyName.message}</p>}
         </div>
 
         {/* Full name */}
@@ -42,14 +42,14 @@ export default function Step1() {
             Full Name
           </Label>
           <Input
-            id="email"
-            type="email"
-            {...register("email")}
+            id="name"
+            type="name"
+            {...register("name")}
             placeholder="Enter your first name"
             className="h-12 rounded-xl focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"
           />
-          {errors.email && (
-            <p className="text-red-500">{errors.email.message}</p>
+          {errors.name && (
+            <p className="text-red-500">{errors.name.message}</p>
           )}
         </div>
 

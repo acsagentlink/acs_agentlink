@@ -89,7 +89,7 @@ input[type="checkbox"] + span {
 input[type="radio"] {
   appearance: none; /* Remove default browser styles */
   width: 20px; /* Size of the radio button */
-  height: 20px;
+  height: 27px;
   border: 2px solid #ccc; /* Default border */
   border-radius: 50%; /* Make it circular */
   cursor: pointer;
@@ -121,3 +121,14 @@ input[type="radio"]:checked::after {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.custom-loader {
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  border:6px solid;
+  border-color:#E4E4ED;
+  border-right-color: #FA8507;
+  animation:s2 1s infinite linear;
+}
+@keyframes s2 {to{transform: rotate(1turn)}}

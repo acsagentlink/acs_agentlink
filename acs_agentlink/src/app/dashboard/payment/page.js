@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -13,6 +13,12 @@ import Image from 'next/image'
 import Layout from '@/components/dashboard/Layout'
 import EditIcon from '../../../../public/edit.svg'
 import BankIcon from '../../../../public/bank-icon.svg'
+import banks from '@/components/dashboard/banks'
+import axios from 'axios'
+import { useUser } from '@/context/UserContext'
+
+
+
 
 const paymentHistory = [
     { icon: BankIcon, bank: 'Catalog Bank', accountNumber: '0123456789', status: 'Successful', amount: '$200', date: '4th Feb, 2024', time: '2:15pm' },
@@ -21,7 +27,10 @@ const paymentHistory = [
     { icon: BankIcon, bank: 'Catalog Bank', accountNumber: '0123456789', status: 'Successful', amount: '$200', date: '4th Feb, 2024', time: '2:15pm' },
   ]
 
-// Zod schemas
+
+export default function PaymentSettings() {
+
+  // Zod schemas
 const fiatSchema = z.object({
   bankName: z.string().nonempty("Bank name is required"),
   accountNumber: z.string().regex(/^\d{10}$/, "Account number must be 10 digits"),
@@ -32,17 +41,25 @@ const cryptoSchema = z.object({
   walletAddress: z.string().regex(/^T[1-9A-HJ-NP-Za-km-z]{33}$/, "Invalid TRC-20 wallet address"),
 })
 
-export default function PaymentSettings() {
+
+
   const [paymentMethod, setPaymentMethod] = useState('Fiat')
   const [isEditing, setIsEditing] = useState(false)
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [load, setLoad] = useState(true);
+  const [user, setUser] = useState({});
+
   const [fiatDetails, setFiatDetails] = useState({
-    bankName: 'Kuda Bank',
-    accountNumber: '1234567890',
-    accountName: 'Jamey Steve'
+    bankName: '',
+    accountNumber: '',
+    accountName: ''
   })
+  
   const [cryptoDetails, setCryptoDetails] = useState({
     walletAddress: 'TLxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
   })
+  const [payments, setPayments] = useState([]);
 
   // Form setup
   const fiatForm = useForm({
@@ -50,31 +67,159 @@ export default function PaymentSettings() {
     defaultValues: fiatDetails,
   })
 
+  const { reset } = fiatForm;
+
   const cryptoForm = useForm({
     resolver: zodResolver(cryptoSchema),
     defaultValues: cryptoDetails,
   })
+
+  const { reset: reset_crypto } = cryptoForm;
+
 
   const handleEdit = () => {
     setIsEditing(true)
   }
 
   const handleSave = (data) => {
-    setIsEditing(false)
+    // setIsEditing(false)
     console.log("Form submitted", data)
+    setLoading(true)
     // Handle backend updates
 
     if (paymentMethod === 'Fiat') {
-        setFiatDetails(data); // Update fiatDetails with new data
+      console.log(data)
+        submit_fiat(data)
+        // Update fiatDetails with new data
       } else if (paymentMethod === 'Crypto') {
-        setCryptoDetails(data); // Update cryptoDetails with new data
+        submit_crypto(data) // Update cryptoDetails with new data
       }
   }
+
+  const submit_fiat = async (data) => {
+
+    setLoading(true);
+    const formData = new FormData();
+
+    // Append form fields to FormData
+    formData.append('type', "fiat");
+    formData.append('bank', data.bankName);
+    formData.append('number', data.accountNumber);
+    formData.append('name', data.accountName);
+
+
+    try {
+      const response = await axios.post(`/api/payments/update`, formData);
+
+  setLoading(false)
+  setFiatDetails(data);
+  setIsEditing(false)
+    } catch (error) {
+      setLoading(false);
+      const apiError = error.response?.data?.error || error.response?.data?.message || 'An unexpected error occurred.';
+      setError(apiError);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const submit_crypto = async (data) => {
+
+    setLoading(true);
+    const formData = new FormData();
+
+    // Append form fields to FormData
+    formData.append('type', "crypto");
+    formData.append('address', data.walletAddress);
+
+
+    try {
+      const response = await axios.post(`/api/payments/update`, formData);
+
+  setLoading(false)
+  setCryptoDetails(data);
+  setIsEditing(false)
+    } catch (error) {
+      setLoading(false);
+      const apiError = error.response?.data?.error || error.response?.data?.message || 'An unexpected error occurred.';
+      setError(apiError);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleCancel = () => {
     setIsEditing(false)
     // Reset form values if needed
   }
+
+  useEffect(() => {
+   
+    const fetchPayments = async () => {
+      try {
+        const response = await axios.get("/api/payments/list");
+        setPayments(response.data.data);
+        setUser(response.data.user)
+        var usr = response.data.user;
+        console.log(usr)
+        if(usr){
+          if(usr.pay_type == "fiat"){
+            setPaymentMethod("Fiat")
+            if(usr.bank_name && usr.account_name && usr.account_number){
+              setFiatDetails({
+                bankName: usr.bank_name,
+                accountNumber: usr.account_number,
+                accountName: usr.account_name
+              })
+            }else{
+              setFiatDetails({
+                bankName: "",
+                accountNumber: "",
+                accountName: ""
+              })
+            }
+          }
+    
+          if(usr.pay_type == "crypto"){
+            setPaymentMethod("Crypto")
+            if(usr.wallet_address){
+              setCryptoDetails({
+                walletAddress: usr.wallet_address
+              })
+            }else{
+              setCryptoDetails({
+                walletAddress: 'TLxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+              })
+            }
+          }
+        }
+        setLoad(false)
+      } catch (err) {
+        setError("Failed to fetch dashboard data");
+      }
+    };
+
+    fetchPayments();
+  }, []);
+  useEffect(() => {
+    if (paymentMethod === "Fiat") {
+      reset(fiatDetails);
+    } else {
+      reset_crypto(cryptoDetails);
+    }
+  }, [fiatDetails, cryptoDetails, paymentMethod]);
+  if (load)
+    return (
+      <div className="w-full h-screen items-center justify-center bg-white">
+        <div className="flex flex-auto h-full flex-col justify-center items-center p-4 md:p-5">
+          <div className="flex justify-center">
+          <div className="custom-loader"></div>
+          </div>
+        </div>
+
+
+      </div>
+    );
 
   return (
     <Layout>
@@ -117,14 +262,12 @@ export default function PaymentSettings() {
                   <form onSubmit={fiatForm.handleSubmit(handleSave)} className="space-y-4">
                     <div>
                       <Label htmlFor="bankName">Bank name</Label>
-                      <Select {...fiatForm.register("bankName")} defaultValue={fiatDetails.bankName}>
+                      <Select {...fiatForm.register("bankName")} defaultValue={fiatDetails.bankName} onValueChange={(value) => fiatForm.setValue("bankName", value)}>
                         <SelectTrigger>
                           <SelectValue placeholder="Select a bank" />
                         </SelectTrigger>
                         <SelectContent className="bg-grayscale-background text-[#101828]">
-                          <SelectItem value="Kuda Bank">Kuda Bank</SelectItem>
-                          <SelectItem value="Opay">Opay</SelectItem>
-                          <SelectItem value="Zenith Bank">Zenith Bank</SelectItem>
+                          {banks.map((bank, id) => <SelectItem value={bank.bankName}>{bank.bankName}</SelectItem>)}
                         </SelectContent>
                       </Select>
                       {fiatForm.formState.errors.bankName && (
@@ -153,9 +296,16 @@ export default function PaymentSettings() {
                         <p className="mt-1 text-sm text-red-600">{fiatForm.formState.errors.accountName.message}</p>
                       )}
                     </div>
+                    {error && (
+            <div className='text-red-500 mt-2'>
+              {error}
+            </div>
+          )}
                     <div className="mt-4 flex justify-end space-x-2">
                       <Button className="rounded-full" onClick={handleCancel} variant="outline">Cancel</Button>
-                      <Button className="rounded-full" type="submit">Save</Button>
+                      <Button className="rounded-full" type="submit" disabled={loading}>
+                      {loading ? (<div className='spinner'></div>) : "Save" }
+                      </Button>
                     </div>
                   </form>
                 ) : (
@@ -189,12 +339,14 @@ export default function PaymentSettings() {
                     </div>
                     <div className="mt-4 flex justify-end space-x-2">
                       <Button className="rounded-full" onClick={handleCancel} variant="outline">Cancel</Button>
-                      <Button className="rounded-full" type="submit">Save</Button>
+                      <Button className="rounded-full" type="submit" disabled={loading}>
+                        {loading? <div className='spinner'></div> : "Save"}
+                      </Button>
                     </div>
                   </form>
                 ) : (
                   <div>
-                    <p><strong>USDT Wallet address (TRC-20):</strong></p>
+                    <p className='mb-4'><strong>USDT Wallet address (TRC-20):</strong></p>
                     <p>{cryptoDetails.walletAddress}</p>
                   </div>
                 )}
@@ -224,16 +376,23 @@ export default function PaymentSettings() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {paymentHistory.map((payment, idx) => (
+              {payments.map((payment, idx) => (
                 <TableRow key={idx}>
                      <TableCell className="flex items-center space-x-2">
-        <Image src={payment.icon} alt={`${payment.bank} icon`} width={24} height={24} />
-        <span>{payment.bank}</span>
+        {/* <Image src={payment.icon} alt={`${payment.bank} icon`} width={24} height={24} /> */}
+        <span>{payment.type == "crypto"? "Wallet Address" : "Bank Account"}</span>
       </TableCell>
                   <TableCell>{payment.status}</TableCell>
-                  <TableCell>{payment.amount}</TableCell>
-                  <TableCell>{payment.date}</TableCell>
-                  <TableCell>{payment.time}</TableCell>
+                  <TableCell>{payment.amount} usd</TableCell>
+                  <TableCell> {new Date(payment.created_at).toLocaleDateString(
+                          "en-US",
+                          { year: "numeric", month: "long", day: "numeric" }
+                        )}</TableCell>
+                  <TableCell>{new Date(payment.created_at).toLocaleTimeString("en-US", {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                hour12: true // For 12-hour format; set to false for 24-hour format
+                              })}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

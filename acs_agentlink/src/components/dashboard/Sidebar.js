@@ -14,6 +14,7 @@ import UserAvatar from '../../../public/Avatar.svg';
 import Image from 'next/image';
 import { Button } from '../ui/button';
 import LogoutIcon from '../../../public/logout.svg';
+import { deleteCookie } from 'cookies-next';
 import { useUser } from "../../context/UserContext";
 
 const Sidebar = () => {
@@ -22,7 +23,11 @@ const Sidebar = () => {
   const router = useRouter();
   const currentRoute = usePathname();
 
-
+  const Logout = () => {
+    deleteCookie('token'); // Remove the token
+    // router.push('/login'); // Redirect to login
+    window.location.href = "/login";
+  }
   const menuItems = [
     { name: 'Dashboard', icon: DashboardIcon, path: '/dashboard' },
     { name: 'My Jobs', icon: JobIcon, path: '/dashboard/jobs' },
@@ -97,7 +102,7 @@ const Sidebar = () => {
       <div className='flex items-center justify-between'>
         <div className='flex items-center'>
           <Image
-          src={UserAvatar}
+          src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/storage` + user.image}
           alt="User Avatar"
           width={40}
           height={40}
@@ -111,7 +116,7 @@ const Sidebar = () => {
         </div>
         <Button
       
-        onClick={() => console.log('Logout clicked')}
+        onClick={() => Logout()}
         className="flex items-center p-2 text-grayscale-label hover:text-grayscale-header bg-white"
         >
           <Image src={LogoutIcon} alt="Logout Icon" width={18} height={18}/>

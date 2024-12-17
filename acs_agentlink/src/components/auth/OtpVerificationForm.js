@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
@@ -6,7 +6,8 @@ import Link from "next/link";
 export default function OtpVerificationForm({ email, onVerify }) {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
-
+  const inputRefs = useRef([]);
+  const [otp2, setOtp2] = useState(Array(6).fill(""));
   const [otp, setOtp] = useState("");
 
   const handleVerify = async (data) => {
@@ -43,9 +44,25 @@ export default function OtpVerificationForm({ email, onVerify }) {
             type="text"
             maxLength="1"
             value={otp[i] || ""}
+            ref={(el) => (inputRefs.current[i] = el)}
             onChange={(e) => {
               const value = e.target.value.replace(/\D/g, "");
               setOtp((prev) => prev.slice(0, i) + value + prev.slice(i + 1));
+              setOtp2((prev) => {
+                const newOtp = [...prev];
+                newOtp[i] = value;
+                return newOtp;
+              });
+              if (i < 5 && value) {
+                inputRefs.current[i + 1].focus();
+              }
+            }}
+
+            onKeyDown={(e) => {
+              // Handle backspace to focus previous input
+              if (e.key === "Backspace" && !otp2[i] && i > 0) {
+                inputRefs.current[i - 1].focus();
+              }
             }}
           />
         ))}

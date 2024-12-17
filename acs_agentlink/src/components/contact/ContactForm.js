@@ -1,6 +1,6 @@
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FormDataSchema } from '../../components/auth/Schema';
+import { FormDataSchema } from './Schema';
 import axios from 'axios';
 import { useState } from 'react';
 import { Input } from '@/components/ui/input';
@@ -23,15 +23,19 @@ export default function ContactForm() {
   const { handleSubmit, watch, setValue, register, formState: { errors }, control, trigger } = methods;
 
   const processForm = async (data) => {
+    console.log(data)
     setLoading(true);
     const formData = new FormData();
 
     // Append form fields to FormData
     formData.append('email', data.email);
-    formData.append('password', data.password);
+    formData.append('name', data.name);
+    formData.append('hear', data.hear_about_us);
+    formData.append('reason', data.reason);
+    formData.append('message', data.message);
 
     try {
-      await axios.post('/api/auth/login', formData);
+      await axios.post('/api/contact', formData);
       router.push('/dashboard');
     } catch (error) {
       setLoading(false);

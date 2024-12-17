@@ -101,7 +101,7 @@ export default function BecomeAgentForm() {
     formData.append("resume", data.resume);
 
     console.log(data.resume);
-
+    setErrorMessage("");
     try {
       console.log(data)
       await axios.post("/api/become-an-agent", formData);

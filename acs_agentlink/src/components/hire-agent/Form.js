@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 export default function HireForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [errorMessage, setErrorMessage] = useState();
+  const [count, setCount] = useState(2);
 
   const router = useRouter();
 
@@ -25,6 +26,7 @@ export default function HireForm() {
       liveChatCombined: [],
       socialMediaCombined: [],
       otherPlatformsCombined: [],
+      startTimeCombined: [],
     },
     resolver: zodResolver(FormDataSchema),
     mode: "onBlur",
@@ -35,24 +37,23 @@ export default function HireForm() {
   const processForm = async (data) => {
     setLoading(true);
     const formData = new FormData();
+    console.log(data)
 
     // Append form fields to FormData
     formData.append("name", data.name);
     formData.append("email", data.email);
-    formData.append("password", data.password);
-    formData.append("phone_number", data.whatsapp_number);
-    formData.append("telegram", data.telegram);
+    formData.append("companyName", data.companyName);
     formData.append("location", data.location);
-    formData.append("another_job", data.another_job);
-    formData.append("job_description", data.job_description);
     formData.append("availability", data.availability);
-
-    formData.append("support_experience", data.support_experience);
-    formData.append("support_experience_description", data.support_experience_description);
+    formData.append("tasks", data.tasks);
+    formData.append("agents", count);
+    formData.append("skills", data.skills);
+    formData.append("other_details", data.additional_requirement_detials)
     formData.append("email_support", JSON.stringify(data.emailSupportCombined)); 
     formData.append("live_chat", JSON.stringify(data.liveChatCombined)); 
     formData.append("social_media_support", JSON.stringify(data.socialMediaCombined)); 
     formData.append("other_platforms", JSON.stringify(data.otherPlatformsCombined)); 
+    formData.append("start_time", JSON.stringify(data.startTimeCombined)); 
 
     try {
       console.log(data)
@@ -71,7 +72,7 @@ export default function HireForm() {
   const next = async () => {
     const fields = steps[currentStep].fields;
     const output = await trigger(fields, { shouldFocus: true });
-
+    console.log("yay", output, methods.formState.errors)
     if (!output) {
       console.error("Validation failed for fields:", methods.formState.errors);
       return;
@@ -145,7 +146,7 @@ export default function HireForm() {
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <Step2 />
+              <Step2 count={count} setCount={setCount} />
             </motion.div>
           )}
         </form>
@@ -186,13 +187,23 @@ const steps = [
   {
     id: "1",
     fields: [
-      
+      "companyName",
+      "name",
+      "email",
+      "location",
     ],
   },
   {
     id: "2",
     fields: [
-      
+      'tasks',
+      'skills',
+      "email_support",
+      "live_chat_support",
+      "social_media_support",
+      "other_platform",
+      "start_time",
+      "additional_requirement_detials"
     ],
   },
 ];

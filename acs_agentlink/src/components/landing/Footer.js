@@ -9,7 +9,7 @@ import LinkedinIcon from "../../../public/linkedin-icon.svg";
 
 export default function Footer() {
   return (
-    <div className="w-full text-center items-center bg-grayscale-header rounded-[34px]">
+    <div className="w-full text-center items-center bg-grayscale-header roundedd-[34px]">
       <div className="flex flex-col text-white items-center p-5">
         <Image src={FooterIcon} />
 

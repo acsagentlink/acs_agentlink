@@ -2,6 +2,8 @@ import { Outfit } from "next/font/google";
 import "./globals.css";
 import { UserProvider } from "@/context/UserContext";
 import { DashboardProvider } from "@/context/DashboardContext";
+import Head from 'next/head'
+
 
 const outfit = Outfit({ 
   subsets: ['latin'], 
@@ -9,7 +11,7 @@ const outfit = Outfit({
 });
 
 export const metadata = {
-  title: "A.C.S AgentLink",
+  title: "A•C•S AgentLink",
   description: "Elevate your prop firm with expert support agents",
 };
 

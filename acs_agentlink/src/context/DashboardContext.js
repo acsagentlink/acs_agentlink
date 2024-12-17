@@ -23,7 +23,7 @@ export const DashboardProvider = ({ children }) => {
         setEarnings(earnings);
         
       } catch (err) {
-        setError("Failed to fetch dashboard data");
+        // setError("Failed to fetch dashboard data");
       }
     };
 

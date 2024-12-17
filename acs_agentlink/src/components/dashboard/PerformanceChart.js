@@ -4,17 +4,21 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 
-export default function PerformanceChart({ feedbackChartData }) {
+export default function PerformanceChart({ feedbackChartData, width }) {
   const [chartWidth, setChartWidth] = useState('50%');
 
   useEffect(() => {
     // Function to handle resize event
     const handleResize = () => {
+      if(width){
+        setChartWidth('100%');
+      }else{
       if (window.innerWidth <= 1024) {
         setChartWidth('100%');
       } else {
         setChartWidth('50%');
       }
+    }
     };
 
     // Set initial chart width based on window size

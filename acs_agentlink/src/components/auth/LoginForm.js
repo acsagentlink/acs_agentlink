@@ -34,14 +34,14 @@ export default function LoginForm() {
     formData.append('password', data.password);
 
     try {
-      const response = await axios.post('/api/auth/login', formData);
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, formData);
 
           // Store the token in a secure, HTTP-only cookie
     setCookie('token', response.data.token, { path: '/' });
-
+      window.location.href = "/dashboard";
     
 
-      router.push('/dashboard');
+      // router.push('/dashboard');
     } catch (error) {
       setLoading(false);
       const apiError = error.response?.data?.error || error.response?.data?.message || 'An unexpected error occurred.';

@@ -6,7 +6,7 @@ import { useFormContext } from "react-hook-form";
 import { useState, useEffect } from "react";
 import { Button } from "../ui/button";
 
-export default function Step2() {
+export default function Step2({ count, setCount}) {
   const {
     register,
     setValue,
@@ -15,10 +15,10 @@ export default function Step2() {
     formState: { errors },
   } = useFormContext();
 
-  const [count, setCount] = useState(2);
+
   
   const increment = () => {
-    if (count < 2) setCount(count + 1);
+    if (count < 11) setCount(count + 1);
   }
 
   const decrement = () => {
@@ -49,10 +49,17 @@ export default function Step2() {
       label: "Other Platforms",
       options: ["Whatsapp", "Other"],
     },
+    {
+      id: "startTime",
+      label: "When do you need them to start?",
+      options: ["Immediately", "On a specific date"],
+    },
   ];
 
   const handleOtherChange = (categoryId, isChecked) => {
+    console.log(categoryId, isChecked, watch(), watch(`${categoryId}.other`))
     setShowOtherFields((prev) => ({ ...prev, [categoryId]: isChecked }));
+  
     if (!isChecked) {
       setValue(`${categoryId}.otherDetails`, ""); // Clear "Other" input if unchecked
     }
@@ -105,10 +112,54 @@ export default function Step2() {
       </div>
     </div>
 
+     <div className="space-y-2">
+          <div className="flex justify-between items-center">
+            <Label
+              htmlFor="tasks"
+            >
+             What tasks, and responsibilities will the agents handle?
+            </Label>
+           
+          </div>
+          
+            <textarea
+              className="text-sm h-28 w-full resize-none p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"
+              id="tasks"
+              {...register("tasks")}
+              placeholder="Describe your current role, and responsibilities"
+            />
+          {errors.tasks && (
+            <p className="text-red-500">{errors.tasks.message}</p>
+          )}
+        </div>
+
+
+        <div className="space-y-2">
+          <div className="flex justify-between items-center">
+            <Label
+              htmlFor="skills"
+            >
+            What specific skills, or qualifications are you looking for in the agents?
+            </Label>
+           
+          </div>
+          
+            <textarea
+              className="text-sm h-28 w-full resize-none p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"
+              id="skills"
+              {...register("skills")}
+              placeholder="Describe your current role, and responsibilities"
+            />
+          {errors.skills && (
+            <p className="text-red-500">{errors.skills.message}</p>
+          )}
+        </div>
+
+
                {/* Customer Support */}
         <div className="space-y-4">
           <Label className="text-sm text-[#344054]">
-            Which platforms have you utilized for customer support?
+          Which platforms will they be managing?
           </Label>
           {categories.map((category) => (
             <div key={category.id} className="mb-6">
@@ -118,15 +169,24 @@ export default function Step2() {
                   <label key={option} className="flex items-center">
                     <input
                       type="checkbox"
-                      {...register(`${category.id}.${option.toLowerCase()}`, {
+                      {...register(`${category.id}.${option == "On a specific date"? "other" : option.toLowerCase()}`, {
                         onChange: () => updateCombinedValues(category.id),
                       })}
-                      onClick={() =>
-                        option === "Other" &&
+                      onClick={() =>{
+                        if(option === "Other"){
                         handleOtherChange(
                           category.id,
                           !watch(`${category.id}.other`)
                         )
+                      }
+
+                      if(option === 'On a specific date'){
+                        handleOtherChange(
+                          category.id,
+                          !watch(`${category.id}.other`)
+                        )
+                      }
+                    }
                       }
                     />
                     <span className="ml-2">{option}</span>
@@ -142,11 +202,17 @@ export default function Step2() {
                     className="mt-2 w-80 p-2 h-12 rounded-xl focus:outline-none focus:ring-2 focus:ring-grayscale-header_weak"
                   />
                 )}
-                {/* {errors[category.id]?.otherDetails && (
+                {errors[category.id]?.otherDetails && (
               <p className="text-red-500 text-sm mt-1">
                 {errors[category.id].otherDetails.message}
               </p>
-            )} */}
+            )}
+
+            {errors[category.id + "Combined"] && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors[category.id+"Combined"].message}
+              </p>
+            )}
               </div>
               {/* <div className="mt-2">
                 <Label>Selected {category.label} Options:</Label>
