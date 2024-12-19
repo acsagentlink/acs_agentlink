@@ -243,7 +243,7 @@ export default function MyJobs() {
                   </div>
                 </div>
                 <div className="flex items-center p-3 bg-grayscale-header_weak text-xs text-white rounded-full">
-                  <Image src={SunIcon} alt={job.hours} className="w-5 h-5 mr-2" />
+                  {/* <Image src={SunIcon} alt={job.hours} className="w-5 h-5 mr-2" /> */}
                   {job.preferred_time}
                 </div>
               </div>
