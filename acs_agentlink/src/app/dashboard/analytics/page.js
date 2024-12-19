@@ -129,8 +129,8 @@ export default function Analytics() {
 
         {Object.entries(data.feedbacks).map(([month, feedbacks]) => <><div className={`space-x-2 ${monthNumber(month) == selectedMonth ? "flex" : "hidden" }`}>
 
-        {feedbacks.map((data) => <div className="p-5 border rounded-2xl bg-grayscale-white space-y-4">
-          <div key={data.created_at} className="flex justify-between items-center gap-5">
+        {feedbacks.map((data) => <div key={data.created_at} className="p-5 border rounded-2xl bg-grayscale-white space-y-4">
+          <div className="flex justify-between items-center gap-5">
             <h1 className="text-md">{data.text}</h1>
             <div className="px-3 py-1 rounded-full text-xs text-[#363F72] bg-[#F8F9FC]">
             {new Date(data.created_at).toLocaleDateString(
