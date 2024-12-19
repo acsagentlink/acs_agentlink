@@ -267,7 +267,7 @@ const cryptoSchema = z.object({
                           <SelectValue placeholder="Select a bank" />
                         </SelectTrigger>
                         <SelectContent className="bg-grayscale-background text-[#101828]">
-                          {banks.map((bank, id) => <SelectItem value={bank.bankName}>{bank.bankName}</SelectItem>)}
+                          {banks.map((bank, id) => <SelectItem key={bank.bankName} value={bank.bankName}>{bank.bankName}</SelectItem>)}
                         </SelectContent>
                       </Select>
                       {fiatForm.formState.errors.bankName && (
