@@ -38,8 +38,8 @@ export function middleware(req) {
   const cookieToken = req.cookies.get('access-token');
 
   // Allow access if token exists in query or cookie
-  if (accessToken === 'secret-token' || cookieToken === 'true') {
-    if (accessToken === 'secret-token') {
+  if (accessToken === '467834' || cookieToken === 'true') {
+    if (accessToken === '467834') {
       // Set a cookie for future access
       const response = NextResponse.next();
       response.cookies.set('access-token', 'true', { path: '/' });
