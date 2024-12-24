@@ -34,7 +34,7 @@ export function middleware(req) {
     }
 
   const accessKey = url.searchParams.get('accesskey');
-  const allowedKey = '233223'; 
+  const allowedKey = process.env.NEXT_PUBLIC_ACCESS_KEY; 
 
   // Allow access if the accesskey matches
   if (accessKey === allowedKey) {
