@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 export function middleware(req) {
 
   const cookie = req.cookies.get('form_submitted');
-  const isSuccessPage = req.nextUrl.pathname === '/become-an-agent/success' || req.nextUrl.pathname === '/hire-an-agent/success';
+  const isSuccessPage = req.nextUrl.pathname === '/become-an-agent/success';
 
   // Access the cookie value as a string
   const cookieValue = cookie ? cookie.value : null;
@@ -26,41 +26,38 @@ export function middleware(req) {
   }
 
   // Public access restriction
-  const url = req.nextUrl.clone();
-  const { pathname, searchParams } = url;
+  const url = req.nextUrl;
 
-  if (pathname === '/launching-soon') {
-    return NextResponse.next();
-  }
-
-  console.log('Requested URL:', req.url);
-console.log('Pathname:', req.nextUrl.pathname);
-
-  // Check for the "access" query parameter or cookie
-  const accessToken = searchParams.get('access');
-  const cookieToken = req.cookies.get('access-token');
-
-  // Allow access if token exists in query or cookie
-  if (accessToken === '467834' || cookieToken === 'true') {
-    if (accessToken === '467834') {
-      // Set a cookie for future access
-      const response = NextResponse.next();
-      response.cookies.set('access-token', 'true', { path: '/' });
-      return response;
+    // Exclude `/launching-soon` from processing
+    if (url.pathname === '/launching-soon') {
+      return NextResponse.next();
     }
-    return NextResponse.next();
+
+  const accessKey = url.searchParams.get('accesskey');
+  const allowedKey = '233223'; 
+
+  // Allow access if the accesskey matches
+  if (accessKey === allowedKey) {
+      const response = NextResponse.next();
+      response.cookies.set('access_granted', 'true', { path: '/', httpOnly: true });
+      return response;
   }
 
-  // Redirect unauthorized users to "Launching Soon" page
-  if (pathname === '/') {
-    url.pathname = '/launching-soon';
-    return NextResponse.redirect(url);
+  // Check if the cookie exists
+  const accessGranted = req.cookies.get('access_granted')?.value === 'true';
+  if (accessGranted) {
+      return NextResponse.next();
   }
 
-  return NextResponse.next(); // Allow all other requests
+  // Redirect to the launching soon page
+  url.pathname = '/launching-soon';
+  url.search = ''; // Remove query params for clean redirect
+  return NextResponse.redirect(url);
+
+  // return NextResponse.next(); // Allow all other requests
   
 }
 
 export const config = {
-  matcher: ['/', '/launching-soon', '/dashboard/:path*', '/become-an-agent/success', '/hire-an-agent/success'],
+  matcher: ['/((?!api|static|_next|favicon.ico|launching-soon).*)', '/dashboard/:path*', '/become-an-agent/success']
 };
