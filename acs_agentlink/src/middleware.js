@@ -52,7 +52,7 @@ console.log('Pathname:', req.nextUrl.pathname);
   }
 
   // Redirect unauthorized users to "Launching Soon" page
-  if (pathname !== '/launching-soon') {
+  if (pathname === '/') {
     url.pathname = '/launching-soon';
     return NextResponse.redirect(url);
   }
