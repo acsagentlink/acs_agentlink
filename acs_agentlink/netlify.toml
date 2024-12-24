@@ -1,8 +1,0 @@
-[build]
-  base = "acs_agentlink" # Set your base directory
-  command = "next build"
-  publish = "acs_agentlink/.next" # Publish the `.next` directory
-  functions = "acs_agentlink/netlify/functions"
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
