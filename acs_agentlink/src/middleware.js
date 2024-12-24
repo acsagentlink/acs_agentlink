@@ -33,6 +33,9 @@ export function middleware(req) {
     return NextResponse.next();
   }
 
+  console.log('Requested URL:', req.url);
+console.log('Pathname:', req.nextUrl.pathname);
+
   // Check for the "access" query parameter or cookie
   const accessToken = searchParams.get('access');
   const cookieToken = req.cookies.get('access-token');
@@ -49,7 +52,7 @@ export function middleware(req) {
   }
 
   // Redirect unauthorized users to "Launching Soon" page
-  if (pathname === '/') {
+  if (pathname !== '/launching-soon') {
     url.pathname = '/launching-soon';
     return NextResponse.redirect(url);
   }
@@ -59,5 +62,5 @@ export function middleware(req) {
 }
 
 export const config = {
-  matcher: ['/', '/:path*', '/dashboard/:path*', '/become-an-agent/success', '/hire-an-agent/success'],
+  matcher: ['/', '/launching-soon', '/dashboard/:path*', '/become-an-agent/success', '/hire-an-agent/success'],
 };
