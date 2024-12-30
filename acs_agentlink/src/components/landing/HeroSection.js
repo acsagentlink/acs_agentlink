@@ -43,7 +43,7 @@ export default function HeroSection() {
           priority={true}
           layout="fill"
           objectPosition="center"
-          className="hidden sm:block h-full object-contain sm:object-scale-up lg:object-scale-up"
+          className="hidden sm:block object-contain sm:object-scale-up lg:object-scale-up"
         />
         {/* Small Screen Image */}
         <Image
