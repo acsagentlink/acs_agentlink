@@ -15,6 +15,11 @@ export const metadata = {
   description: "Elevate your prop firm with expert support agents",
 };
 
+export const viewport = {
+  initialScale: 1,
+  width: 'device-width'
+}
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
