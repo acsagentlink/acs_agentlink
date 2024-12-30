@@ -12,7 +12,7 @@ import { useState, useEffect } from 'react';
 export default function HeroSection() {  
 
   return (
-    <div className="relative w-full mobile-desktop:h-[50vh] overflow-hidden rounded-[34px]" id="home">
+    <div className="relative w-full overflow-hidden rounded-[34px]" id="home">
       {/* Hero-1 Background Image */}
       <div className="relative w-full lg:h-screen md:h-screen xl:h-full sm:h-screen h-screen">
           {/* Large Screen Image */}
@@ -20,7 +20,7 @@ export default function HeroSection() {
           src={heroImageLarge}
           alt="Hero background"
           priority={true}
-          className="hidden sm:block w-full h-full object-cover"
+          className="hidden sm:block w-full md:h-full object-cover"
         />
         {/* Small Screen Image */}
         <Image
@@ -32,10 +32,10 @@ export default function HeroSection() {
       </div>
 
       {/* Dark Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-dark-overlay"></div>
+      <div className="absolute inset-0 w-full h-full bg-gradient-dark-overlay"></div>
 
       {/* Hero-2 Image Positioned Above Hero-1 */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 w-full h-full flex justify-center items-end">
                {/* Large Screen Image */}
                <Image
           src={heroImage2Large}
@@ -43,7 +43,7 @@ export default function HeroSection() {
           priority={true}
           layout="fill"
           objectPosition="center bottom"
-          className="hidden sm:block h-full object-contain sm:object-scale-up lg:object-scale-up"
+          className="hidden sm:block w-auto h-auto max-w-full max-h-full object-contain sm:object-scale-up lg:object-scale-up"
         />
         {/* Small Screen Image */}
         <Image
@@ -52,7 +52,7 @@ export default function HeroSection() {
           priority={true}
           layout="fill"
           objectPosition="center bottom"
-          className="block sm:hidden h-full object-contain sm:object-scale-up lg:object-scale-up"
+          className="block sm:hidden w-auto h-auto max-w-full max-h-full object-contain sm:object-scale-up lg:object-scale-up"
         />
 
       </div>
