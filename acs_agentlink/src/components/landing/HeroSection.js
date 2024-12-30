@@ -20,7 +20,7 @@ export default function HeroSection() {
           src={heroImageLarge}
           alt="Hero background"
           priority={true}
-          className="hidden sm:block w-full lg:h-full mobile-desktop:h-[50vh] object-cover"
+          className="hidden sm:block w-full h-full object-cover"
         />
         {/* Small Screen Image */}
         <Image
@@ -42,8 +42,8 @@ export default function HeroSection() {
           alt="Hero foreground"
           priority={true}
           layout="fill"
-          objectPosition="center"
-          className="hidden sm:block object-contain sm:object-scale-up lg:object-scale-up"
+          objectPosition="center bottom"
+          className="hidden sm:block h-full object-contain sm:object-scale-up lg:object-scale-up"
         />
         {/* Small Screen Image */}
         <Image
