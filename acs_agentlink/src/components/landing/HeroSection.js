@@ -42,7 +42,7 @@ export default function HeroSection() {
           alt="Hero foreground"
           priority={true}
           layout="fill"
-          objectPosition="center bottom"
+          objectPosition="center"
           className="hidden sm:block h-full object-contain sm:object-scale-up lg:object-scale-up"
         />
         {/* Small Screen Image */}
