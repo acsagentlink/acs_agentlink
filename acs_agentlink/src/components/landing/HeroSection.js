@@ -52,7 +52,7 @@ export default function HeroSection() {
           priority={true}
           layout="fill"
           objectPosition="center bottom"
-          className="block sm:hidden w-auto h-auto max-w-full max-h-full object-contain sm:object-scale-up lg:object-scale-up"
+          className="block sm:hidden w-auto h-auto max-w-full max-h-full object-contain sm:object-scale-up lg:object-scale-up mt-4"
         />
 
       </div>
