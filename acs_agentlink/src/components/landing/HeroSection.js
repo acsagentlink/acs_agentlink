@@ -14,7 +14,7 @@ export default function HeroSection() {
   return (
     <div className="relative w-full overflow-hidden rounded-[34px]" id="home">
       {/* Hero-1 Background Image */}
-      <div className="relative w-full lg:h-screen md:h-screen xl:h-full sm:h-screen h-screen">
+      <div className="relative w-full">
           {/* Large Screen Image */}
           <Image
           src={heroImageLarge}
@@ -27,7 +27,7 @@ export default function HeroSection() {
           src={heroImageSmall}
           alt="Hero background small"
           priority={true}
-          className="block sm:hidden w-full h-full object-cover"
+          className="block sm:hidden w-full object-cover"
         />
       </div>
 
