@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
-import heroImage from '/public/hero-1.svg';
-import heroImage2 from '/public/hero-2.svg';
+import heroImageLarge from '/public/hero-1.svg';
+import heroImage2Large from '/public/hero-2.svg';
 import heroImageSmall from '/public/hero-1-sm.svg';
 import heroImage2Small from '/public/hero-2-sm.svg';
 import Header from './Header';
@@ -10,35 +10,24 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
 export default function HeroSection() {  
-  const [currentHeroImage, setCurrentHeroImage] = useState(heroImage);
-  const [currentHeroImage2, setCurrentHeroImage2] = useState(heroImage2);
-  
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 768) {
-        setCurrentHeroImage(heroImageSmall);
-        setCurrentHeroImage2(heroImage2Small);
-      } else {
-        setCurrentHeroImage(heroImage);
-        setCurrentHeroImage2(heroImage2);
-      }
-    };
-
-    handleResize(); // Check initial screen size
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   return (
     <div className="relative w-full min-h-screen overflow-hidden rounded-[34px]" id="home">
       {/* Hero-1 Background Image */}
       <div className="relative w-full lg:h-screen md:h-screen xl:h-full sm:h-screen h-screen">
-        <Image
-          src={currentHeroImage}
+          {/* Large Screen Image */}
+          <Image
+          src={heroImageLarge}
           alt="Hero background"
           priority={true}
-          className="w-full h-full object-cover"
+          className="hidden sm:block w-full h-full object-cover"
+        />
+        {/* Small Screen Image */}
+        <Image
+          src={heroImageSmall}
+          alt="Hero background small"
+          priority={true}
+          className="block sm:hidden w-full h-full object-cover"
         />
       </div>
 
@@ -47,14 +36,25 @@ export default function HeroSection() {
 
       {/* Hero-2 Image Positioned Above Hero-1 */}
       <div className="absolute inset-0">
-        <Image
-          src={currentHeroImage2}
+               {/* Large Screen Image */}
+               <Image
+          src={heroImage2Large}
           alt="Hero foreground"
           priority={true}
-          layout='fill'
-          objectPosition='center bottom'
-          className="relative h-full object-contain sm:object-scale-up lg:object-scale-up"
+          layout="fill"
+          objectPosition="center bottom"
+          className="hidden sm:block h-full object-contain sm:object-scale-up lg:object-scale-up"
         />
+        {/* Small Screen Image */}
+        <Image
+          src={heroImage2Small}
+          alt="Hero foreground small"
+          priority={true}
+          layout="fill"
+          objectPosition="center bottom"
+          className="block sm:hidden h-full object-contain sm:object-scale-up lg:object-scale-up"
+        />
+
       </div>
       {/* Hero Header and Content */}
       <div className="absolute inset-0 flex flex-col  text-center">
