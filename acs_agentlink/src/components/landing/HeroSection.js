@@ -14,13 +14,13 @@ export default function HeroSection() {
   return (
     <div className="relative w-full mobile-desktop:h-[50vh] overflow-hidden rounded-[34px]" id="home">
       {/* Hero-1 Background Image */}
-      <div className="relative w-full lg:h-[50vh] mobile-desktop:h-[50vh] md:h-screen xl:h-full sm:h-screen h-screen">
+      <div className="relative w-full lg:h-screen md:h-screen xl:h-full sm:h-screen h-screen">
           {/* Large Screen Image */}
           <Image
           src={heroImageLarge}
           alt="Hero background"
           priority={true}
-          className="hidden sm:block w-full h-full object-cover"
+          className="hidden sm:block w-full h-full mobile-desktop:h-[50vh] object-cover"
         />
         {/* Small Screen Image */}
         <Image
