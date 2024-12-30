@@ -77,7 +77,10 @@ module.exports = {
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out'
-  		}
+  		},
+		screens: {
+			'mobile-desktop': { raw: '(min-width: 1024px) and (max-height: 800px) and (max-device-width: 812px)' },
+		},
   	}
   },
   plugins: [],

@@ -12,9 +12,9 @@ import { useState, useEffect } from 'react';
 export default function HeroSection() {  
 
   return (
-    <div className="relative w-full min-h-screen overflow-hidden rounded-[34px]" id="home">
+    <div className="relative w-full min-h-screen mobile-desktop:h-[50vh] overflow-hidden rounded-[34px]" id="home">
       {/* Hero-1 Background Image */}
-      <div className="relative w-full lg:h-screen md:h-screen xl:h-full sm:h-screen h-screen">
+      <div className="relative w-full lg:h-screen mobile-desktop:h-[50vh] md:h-screen xl:h-full sm:h-screen h-screen">
           {/* Large Screen Image */}
           <Image
           src={heroImageLarge}
@@ -85,7 +85,7 @@ export default function HeroSection() {
           Elevate your firm with <br /> expert customer support
         </span>
       </motion.p>
-        <div className="mt-12 flex flex-col md:flex-row justify-center gap-4 items-center">
+        <div className="mt-10 flex flex-col md:flex-row justify-center gap-4 items-center">
           <Link
             href="/hire-an-agent"
             className="relative text-grayscale-white bg-primary rounded-full hover:rounded-full hover:text-grayscale-background py-5 px-8 ring-[rgba(250,133,7,0.1)]  ring-8"
