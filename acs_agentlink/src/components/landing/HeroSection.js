@@ -20,7 +20,7 @@ export default function HeroSection() {
           src={heroImageLarge}
           alt="Hero background"
           priority={true}
-          className="hidden sm:block w-full h-full mobile-desktop:h-[50vh] object-cover"
+          className="hidden sm:block w-full lg:h-full mobile-desktop:h-[50vh] object-cover"
         />
         {/* Small Screen Image */}
         <Image
