@@ -15,14 +15,14 @@ export const metadata = {
   description: "Elevate your prop firm with expert support agents",
 };
 
-export const viewport = {
-  initialScale: 1,
-  width: 'device-width'
-}
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <Head>
+        <title>{metadata.title}</title>
+        <meta name="description" content={metadata.description} />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
       <body className={outfit.className}>
         <DashboardProvider>
         <UserProvider>{children}</UserProvider>
